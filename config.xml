@@ -38,6 +38,7 @@
     <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyDGhlrw1b8QbclymhqKebBYEvuSsCmNmTM" />
     <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyD5kCWTUhrPZeZOLKjq1pMUkUbRG25uH8s" />
     <platform name="android">
+        <hook src="scripts/copy_build_extra.js" type="before_build" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -125,4 +126,5 @@
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDGhlrw1b8QbclymhqKebBYEvuSsCmNmTM" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyD5kCWTUhrPZeZOLKjq1pMUkUbRG25uH8s" />
     </plugin>
+    <engine name="android" spec="6.4.0" />
 </widget>

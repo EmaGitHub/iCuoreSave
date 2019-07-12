@@ -1,0 +1,38 @@
+<ion-list padding (tap)="close()">
+
+    <ion-item (tap)="langIT()">
+        <ion-grid style="height: 100%">
+            <ion-row justify-content-center align-items-center style="height: 100%">
+                <ion-col col-4>
+                    <img src="assets/imgs/languages/IT.png" id="flagImage" />
+                </ion-col>
+                <ion-col col-7>
+                    Italiano
+                </ion-col>
+                <ion-col col-1>
+                    <ion-icon *ngIf="ITactive" name="checkmark"></ion-icon>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+
+    <ion-item no-lines (tap)="langEN()">
+        <ion-grid style="height: 100%">
+            <ion-row justify-content-center align-items-center style="height: 100%">
+                <ion-col col-4>
+                    <img src="assets/imgs/languages/UK.png" id="flagImage" />
+                </ion-col>
+                <ion-col col-7>
+                    Inglese
+                </ion-col>
+                <ion-col col-1>
+                    <ion-icon *ngIf="ENactive" name="checkmark"></ion-icon>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+
+
+
+
+</ion-list>

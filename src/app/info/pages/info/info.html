@@ -1,0 +1,26 @@
+<!--
+  Generated template for the InfoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<navbar [page]="'INFO'"></navbar>
+
+<ion-content padding>
+
+    JWT
+    <hr>
+
+    <ion-item>
+        <ion-label color="primary" floating>Key Label</ion-label>
+        <ion-input [(ngModel)]="key"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label color="primary" floating>Value Label</ion-label>
+        <ion-input [(ngModel)]="value"></ion-input>
+    </ion-item>
+    <button ion-button (tap)="submit()">submit on storage</button>
+    <button ion-button (tap)="get()">get from storage</button>
+
+    <br><br> stored Value: {{store | json}}
+</ion-content>

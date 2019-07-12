@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 
@@ -15,10 +15,10 @@ interface IKeyboard {
     show(): void;
 }
 
-declare const Keyboard: IKeyboard;
+declare var Keyboard: IKeyboard;
 
 @Injectable()
-export class KeyboardProvider {
+export class KeyboardProvider implements OnDestroy, OnInit {
     /**
     * Keyboard instance
     *
@@ -41,6 +41,8 @@ export class KeyboardProvider {
         }
     }
 
+    ngOnInit() {
+    }
     /**
     * Determine if the keyboard is visible
     *
@@ -48,8 +50,8 @@ export class KeyboardProvider {
     * @type {boolean}
     * @memberof KeyboardProvider
     */
-    public get isVisible(): boolean {
-        if (this._keyboard) {
+    get isVisible(): boolean {
+        if(this._keyboard){
             return this._keyboard.isVisible;
         }
         return false;
@@ -59,16 +61,16 @@ export class KeyboardProvider {
     * @param value
     * @param successCallback
     */
-    public hideFormAccessoryBar(value: boolean, successCallback?: Function): void {
-        if (this._keyboard) {
+    hideFormAccessoryBar(value: boolean, successCallback?: Function): void {
+        if(this._keyboard){
             this._keyboard.hideFormAccessoryBar(value, successCallback);
         }
     }
     /**
     * Show the keyboard
     */
-    public show(): void {
-        if (this._keyboard) {
+    show(): void {
+        if(this._keyboard){
             this._keyboard.show();
         }
     }
@@ -77,18 +79,18 @@ export class KeyboardProvider {
     *
     * @memberof KeyboardProvider
     */
-    public hide(): void {
-        if (this._keyboard) {
+    hide(): void {
+        if(this._keyboard){
             // Workaround for different methods for close function
             // betweek iOS and Android
-            try {
+            try{
                 this._keyboard.hide();
             }
-            catch (e) {
-                try {
+            catch(e){
+                try{
                     this._keyboard.close();
                 }
-                catch (e) {}
+                catch(e){}
             }
         }
     }
@@ -98,7 +100,7 @@ export class KeyboardProvider {
     * @returns {Observable<void>}
     * @memberof KeyboardProvider
     */
-    public keyboardDidHide(): Observable<void> {
+    keyboardDidHide(): Observable<void> {
         if (!this._keyboardDidHide$) {
             this._keyboardDidHide$ = fromEvent(window, 'keyboardDidHide');
         }
@@ -110,7 +112,7 @@ export class KeyboardProvider {
     * @returns {Observable<KeyboardEvent>}
     * @memberof KeyboardProvider
     */
-    public keyboardDidShow(): Observable<KeyboardEvent> {
+    keyboardDidShow(): Observable<KeyboardEvent> {
         if (!this._keyboardDidShow$) {
             this._keyboardDidShow$ = fromEvent(window, 'keyboardDidShow');
         }
@@ -122,7 +124,7 @@ export class KeyboardProvider {
     * @returns {Observable<void>}
     * @memberof KeyboardProvider
     */
-    public keyboardWillHide(): Observable<void> {
+    keyboardWillHide(): Observable<void> {
         if (!this._keyboardWillHide$) {
             this._keyboardWillHide$ = fromEvent(window, 'keyboardWillHide');
         }
@@ -134,11 +136,14 @@ export class KeyboardProvider {
     * @returns {Observable<KeyboardEvent>}
     * @memberof KeyboardProvider
     */
-    public keyboardWillShow(): Observable<KeyboardEvent> {
+    keyboardWillShow(): Observable<KeyboardEvent> {
         if (!this._keyboardWillShow$) {
             this._keyboardWillShow$ = fromEvent(window, 'keyboardWillShow');
         }
         return this._keyboardWillShow$;
+    }
+
+    ngOnDestroy() {
     }
 
 }

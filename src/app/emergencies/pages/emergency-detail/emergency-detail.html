@@ -1,0 +1,60 @@
+<!-- Generated template for the EmergencyDetailComponent component -->
+
+<navbar (backEvent)="backEvent($event)" [page]="'EMERGENCY'"></navbar>
+
+<ion-content padding-top id="ion-content">
+    <div id=cont>
+
+        <ion-row id="segmentButtonsRow">
+            <ion-col text-center no-padding>
+
+                <button ion-button id="topButton" style="text-transform: none;" (tap)="goToEmergency()">{{'GO_TO_EMERGENCY' | translate}}</button>
+
+            </ion-col>
+            <ion-col text-center no-padding>
+
+                <div id="sonoSulPostoDiv" (tap)="sonoSulPosto()">
+                    <div id="labelButton"><img id="sonoSulPostoIcon" src="assets/imgs/icons/sonosulposto.png"> Sono sul posto </div>
+                </div>
+            </ion-col>
+        </ion-row>
+
+
+        <div id="map">
+            <div id="map_canvas">
+                <div (tap)="reloadMap()" [@loadingProblem]='loadProblem' class="centered loadingProblem">
+                    <div justify-content-center align-items-center>
+                        Something went wrong
+                        <br> Tap to reload map
+                    </div>
+                </div>
+                <div id="spinnerDiv" *ngIf="refreshMapVisible" (tap)="reloadMap()">
+                    <div class="centered">
+                        Connection problem
+                        <br> Tap to retry
+                        <br>
+                        <ion-spinner name="bubbles"> </ion-spinner>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="navButtons">
+
+            <ion-row id="segmentButtonsRow">
+                <ion-col text-center no-padding>
+
+                    <button ion-button [ngClass]="directionMode=='driving' ? 'navButtonSelected' : 'navButtonUnselected'" style="text-transform: none;" (tap)="carSelected()">
+                        <ion-icon id="blackIcon" name="ics-car"></ion-icon> &nbsp; {{distanceObj.carDuration}}
+                      </button>
+                </ion-col>
+                <ion-col text-center no-padding>
+                    <button ion-button [ngClass]="directionMode=='walking' ? 'navButtonSelected' : 'navButtonUnselected'" style="text-transform: none;" (tap)="walkSelected()">
+                        <ion-icon id="blackIcon" name="ics-walk"></ion-icon>{{distanceObj.walkingDuration}}
+                      </button>
+
+                </ion-col>
+            </ion-row>
+        </div>
+    </div>
+</ion-content>

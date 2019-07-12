@@ -1,0 +1,66 @@
+<navbar id="top" [page]="'FIND_DAE'" *ngIf="animations" [state]="state"></navbar>
+<navbar id="top" [page]="'FIND_DAE'" *ngIf="!animations"></navbar>
+
+
+<ion-content>
+
+    <div id="segmentsTab" *ngIf="animations" [@elementState]="state">
+        <button class="mapSelection" (tap)="segmentSelected('Map')">
+                Mappa
+            </button>
+        <button class="listSelection" (tap)="segmentSelected('List')">
+                Lista
+            </button>
+        <div [@underBar]="barState" class="underBar"></div>
+    </div>
+
+    <div id="segmentsTab" *ngIf="!animations" class="topNoAnim">
+        <button class="mapSelection" (tap)="segmentSelected('Map')">
+            Mappa
+        </button>
+        <button class="listSelection" (tap)="segmentSelected('List')">
+            Lista
+        </button>
+        <div [@underBar]="barState" class="underBar"></div>
+    </div>
+
+    <div class="list" *ngIf="selected == 'List'" padding-left padding-right>
+
+        <div id="spinnerDiv" *ngIf="refreshListVisible" (tap)="initLocation()">
+            <div class="centered">
+                Connection problem
+                <br> Tap to retry
+                <br>
+                <ion-spinner name="bubbles"> </ion-spinner>
+            </div>
+
+        </div>
+
+        <div *ngIf="animations" [@listAnimation]="items.length">
+            <div *ngFor="let item of items">
+                <list-item [dae]="item" *ngIf="iOsAnimationFix"></list-item>
+            </div>
+        </div>
+
+        <div *ngIf="!animations">
+            <div *ngFor="let item of items">
+                <list-item [dae]="item"></list-item>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="content" *ngIf="selected == 'Map'">
+
+        <div id="map_canvas">
+
+            <div id="spinnerMapDiv" *ngIf="loadingDaesVisible">
+                <ion-spinner name="bubbles"> </ion-spinner>
+                <br> Loading near DAEs
+            </div>
+
+        </div>
+
+    </div>
+
+</ion-content>

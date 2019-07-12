@@ -1,0 +1,109 @@
+emergency {
+    .iconLeft {
+        text-align: center;
+    }
+    #elem {
+        position: relative;
+        border: 1px rgb(175, 172, 172) solid;
+        background-color: white;
+        border-radius: 8px;
+        padding-bottom: 30px;
+    }
+    .centered {
+        text-align: center;
+    }
+    #titleRow {
+        background-color: map-get($colors, red);
+        height: 6vh;
+        line-height: 6vh;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+    }
+    #titleIcon {
+        color: white;
+        font-size: 6vh;
+        margin-left: 1vh;
+        float: left;
+    }
+    #titleName {
+        color: white;
+        font-size: 20px !important;
+        float: left;
+    }
+    #dist {
+        position: absolute !important;
+        right: 20px;
+        color: white;
+    }
+    #interveneButton {
+        padding-left: 4vw;
+        padding-right: 4vw;
+        margin-top: 0;
+        height: 6vh;
+        background-color: map-get($colors, red);
+        color: white;
+        border-radius: 50vw;
+    }
+    #cantInterveneButton {
+        padding-left: 4vw;
+        padding-right: 4vw;
+        margin-top: 0;
+        height: 6vh;
+        background-color: white;
+        color: map-get($colors, blue);
+        border: 1px map-get($colors, blue) solid;
+        border-radius: 50vw;
+    }
+    #segmentButtonsRow {
+        padding: 0px !important;
+        margin: 0 !important;
+        position: relative;
+        bottom: 3vh;
+    }
+    ion-item ion-icon {
+        font-size: 10vh !important; //Preferred size here
+        color: map-get($colors, green);
+        position: fixed;
+        right: 1vh;
+        top: 1vh;
+    }
+    #icon {
+        font-size: 5vh;
+        color: gray;
+    }
+    #blackIcon {
+        font-size: 3vh;
+        color: black;
+    }
+    #estimate {
+        font-size: 15px;
+        margin-left: 5px;
+    }
+    #estimateWalk {
+        font-size: 15px;
+    }
+    #whiteSpinner {
+        position: relative;
+        top: 5px;
+        * {
+            stroke: white;
+        }
+        &.spinner-circles circle,
+        &.spinner-bubbles circle,
+        &.spinner-dots circle {
+            fill: white;
+        }
+    }
+    #blackSpinner {
+        position: relative;
+        top: 5px;
+        * {
+            stroke: black;
+        }
+        &.spinner-circles circle,
+        &.spinner-bubbles circle,
+        &.spinner-dots circle {
+            fill: black;
+        }
+    }
+}

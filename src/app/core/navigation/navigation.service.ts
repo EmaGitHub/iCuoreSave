@@ -8,13 +8,13 @@ export class NavigationService {
     constructor(
         private launchNavigator: LaunchNavigator,
         private geolocation: Geolocation
-    ) { }
+    ){ }
 
     /**
      * @param  {Partial<GeolocationOptions>={}} options
      * @returns Promise
      */
-    public getCurrentPosition(options: Partial<GeolocationOptions> = {}): Promise<Geoposition> {
+    getCurrentPosition(options: Partial<GeolocationOptions> = {}): Promise<Geoposition>{
         return this.geolocation.getCurrentPosition(options);
     }
 
@@ -23,14 +23,13 @@ export class NavigationService {
      * @param  {number} lng
      * @param  {Partial<LaunchNavigatorOptions>={}} options
      */
-    public navigateToCoordinates(coords: {latitude: number; longitude: number}, options?: Partial<LaunchNavigatorOptions>): Promise<null> {
+    navigateToCoordinates(coords: {latitude: number, longitude: number}, options: Partial<LaunchNavigatorOptions> = {}) {
         return new Promise((resolve, reject) => {
             this.getCurrentPosition().then(
                 (position: Geoposition) => {
-                    if (!options) {
-                        options = {};
-                    }
-                    options.start = `${position.coords.latitude},${position.coords.longitude}`;
+                    let options: LaunchNavigatorOptions = {
+                        start: `${position.coords.latitude},${position.coords.longitude}`
+                    };
                     this.launchNavigator.navigate([coords.latitude, coords.longitude], options).then(
                         resolve,
                         (err: string) => {

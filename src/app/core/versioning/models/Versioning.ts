@@ -1,5 +1,5 @@
 
-export interface IVersioning {
+export interface Versioning {
     platform: string;
     lastVersion: string;
     isMandatoryUpdate: boolean;

@@ -1,0 +1,94 @@
+
+ion-popover.push-notifications-popover {
+    position: static;
+
+    .popover-arrow {
+        display: none;
+    }
+
+    .popover-content {
+        top: 0 !important;
+        left: 0 !important;
+        width: 100%;
+        padding: 5px;
+        background: transparent;
+        box-shadow: none;
+        transform-origin: center top 0px !important;
+
+        .popover-viewport {
+            border-radius: 10px;
+            -webkit-backdrop-filter: blur(10px);
+            background: rgba(243, 243, 243, 0.85);
+
+            push-notifications-popover {
+                ion-list.list {
+                    margin: 0;
+                    border-radius: 10px;
+                    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, .3);
+
+                    .item {
+                        border-radius: 10px;
+                        background: transparent;
+
+                        ion-icon {
+                            color: map-get($colors, primary);
+                        }
+                        .item-inner {
+                            margin-left: 4px;
+
+                            .label {
+                                margin: 8px 0px;
+                            }
+
+                            p.sub-title {
+                                white-space: normal;
+                                margin: 5px 0;
+                            }
+                            .note {
+                                align-self: flex-start;
+                                position: absolute;
+                                right: 0;
+                                font-size: 12px;
+                                color: #4c4c4c;
+                            }
+                            .close {
+                                align-self: flex-end;
+                                margin-bottom: 5px;
+                                margin-right: 2px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.platform-cordova.platform-android ion-popover.push-notifications-popover .popover-content .popover-viewport {
+    background: rgba(243, 243, 243, 0.96);
+    border-radius: 0;
+
+    push-notifications-popover ion-list.list {
+        border-radius: 0;
+
+        .item {
+            border-radius: 0;
+        }
+    }
+}
+
+
+.platform-cordova.platform-ios ion-popover.push-notifications-popover .popover-content {
+    padding-top: calc(20px + 4px);
+    padding-top: calc(constant(safe-area-inset-top) + 4px);
+    padding-top: calc(env(safe-area-inset-top) + 4px);
+    min-height: calc(56px + 20px);
+    min-height: calc(56px + constant(safe-area-inset-top));
+    min-height: calc(56px + env(safe-area-inset-top));
+}
+
+.platform-tablet ion-popover.push-notifications-popover .popover-content {
+    max-width: 450px !important;
+    right: 0 !important;
+    left: auto !important;
+}

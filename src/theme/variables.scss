@@ -1,30 +1,20 @@
+$toolbar-background: transparent;
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
-
 // Font path is used to include ionicons,
 // roboto, and noto sans fonts
 $font-path: "../assets/fonts";
-
-
 // The app direction is used to include
 // rtl styles in your app. For more info, please see:
 // http://ionicframework.com/docs/theming/rtl-support/
 $app-direction: ltr;
-
-
 @import "ionic.globals";
-
-
 // Shared Variables
 // --------------------------------------------------
 // To customize the look and feel of this app, you can override
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
-
-
-
-
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -32,69 +22,36 @@ $app-direction: ltr;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-
-$colors: (
-  primary:          #283C5A,
-  ios-primary:      #387ef5,
-  secondary:        #8DCFD7,
-  light-secondary:  #c6e6ea,
-  danger:           #f53d3d,
-  light:            #FFFFFF,
-  dark:             #222,
-  gray:             #EFF0EF,
-  google-gray:      #424242
-);
-
-
+$colors: ( primary: #283C5A, ios-primary: #387ef5, secondary: #8DCFD7, light-secondary: #c6e6ea, danger: #f53d3d, light: #FFFFFF, dark: #222, gray: #e6e6e6, google-gray: #424242, red: #df222e, green: #2da745, blue: #067DBE);
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
-
-
-
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-
-$split-pane-md-side-min-width: 330px;
-$split-pane-md-side-max-width: 330px;
+// $split-pane-md-side-min-width: 330px;
+// $split-pane-md-side-max-width: 330px;
 $split-pane-md-border: 1px solid map-get($colors, primary);
-
-
-
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
-
-
-
-
 // App Theme
 // --------------------------------------------------
 // Ionic apps can have different themes applied, which can
 // then be future customized. This import comes last
 // so that the above variables are used and Ionic's
 // default are overridden.
-
 @import "ionic.theme.default";
-
-
 // Ionicons
 // --------------------------------------------------
 // The premium icon font for Ionic. For more info, please see:
 // http://ionicframework.com/docs/ionicons/
-
 @import "ionic.ionicons";
-
-
 // Fonts
 // --------------------------------------------------
-
 @import "roboto";
 @import "noto-sans";
-
-
+@import "../assets/fonts/iCuoreSave";
 // Project style
 @import "./hide-on-keyboard-open";
 @import "./modal";

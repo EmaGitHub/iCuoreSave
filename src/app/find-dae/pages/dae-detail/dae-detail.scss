@@ -1,0 +1,42 @@
+dae-detail-page {
+    #ion-content {
+        background-color: map-get($colors, gray)
+    }
+    #cont {
+        margin: 3vw;
+        border: 1px gray solid;
+        border-radius: 2vw;
+        margin-top: 10vh;
+        background: white;
+    }
+    img {
+        width: 100%;
+        height: 30vh;
+        border-top-left-radius: 2vw;
+        border-top-right-radius: 2vw;
+    }
+    #title {
+        padding: 2vh;
+    }
+    ion-row {
+        margin-left: 5vw;
+    }
+    #bottom-button {
+        color: black;
+        background: white;
+        border: 2px map-get($colors, green) solid;
+        padding-left: 2vh;
+    }
+    #bold-text {
+        font-weight: bold;
+    }
+    #icon {
+        color: map-get($colors, green);
+        font-size: 5vh;
+    }
+    .capitalize {
+        text-transform: capitalize;
+    }
+}
+
+;

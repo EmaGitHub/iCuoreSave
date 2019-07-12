@@ -1,0 +1,71 @@
+<!-- Generated template for the DaeDetailComponent component -->
+<navbar (backEvent)="backEvent($event)" [page]="'DAE_DETAILS'"></navbar>
+
+<ion-content id="ion-content">
+
+    <div id="cont">
+
+        <img src="assets/imgs/dae.jpg" />
+
+        <br><br>
+
+        <div id="title">
+            <span id="bold-text">{{dae._comune}}</span>
+            <br> <span class="capitalize"> {{dae._descrizione |lowercase}} </span>
+        </div>
+
+        <br><br>
+
+        <ion-row>
+            <ion-col col-2>
+                <ion-icon id="icon" name="pin"></ion-icon>
+            </ion-col>
+            <ion-col col-10>
+                <span id="bold-text" class="capitalize">{{dae._comune | lowercase}}</span>
+                <br><span class="capitalize">{{dae._indirizzo | lowercase}} </span> ( {{dae._distanza}} )
+            </ion-col>
+        </ion-row>
+
+
+        <br>
+
+
+        <ion-row>
+            <ion-col col-2>
+                <ion-icon id="icon" name="clock"></ion-icon>
+            </ion-col>
+            <ion-col col-10>
+                <span id="bold-text">Disponibilità</span>
+                <br>{{dae._availability || ND}}
+                <br>
+
+            </ion-col>
+        </ion-row>
+
+
+        <br>
+
+
+        <ion-row>
+            <ion-col col-2>
+                <ion-icon id="icon" name="call"></ion-icon>
+            </ion-col>
+            <ion-col col-10>
+                <span id="bold-text">Contatti</span>
+                <br>{{dae._contacts || ND}}
+            </ion-col>
+        </ion-row>
+
+        <br>
+        <hr>
+
+
+        <div text-center padding>
+            <button id="bottom-button" (tap)="navigateToDae()" ion-button>NAVIGA VERSO IL DAE</button>
+        </div>
+
+
+    </div>
+
+
+</ion-content>

@@ -12,32 +12,32 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ResponseErrorInterceptor implements HttpInterceptor {
-    private _isRefreshingToken: boolean = false;
-    private _tokenSubject: BehaviorSubject<string|null> = new BehaviorSubject<string|null>(null);
+    isRefreshingToken: boolean = false;
+    tokenSubject: BehaviorSubject<string|null> = new BehaviorSubject<string|null>(null);
 
     constructor(
         private injector: Injector
-    ) {}
+    ){ }
 
-    public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req)
             .catch((error: any) => {
                 const deviceService: DeviceService = this.injector.get(DeviceService);
-                if (deviceService.isOnline()) {
+                if(deviceService.isOnline()){
                     if (error instanceof HttpErrorResponse) {
-                        switch ((error as HttpErrorResponse).status) {
-                        case 401:
-                            return this._handle401Error(req, error, next);
-                        default:
-                            return this._handleError(error);
+                        switch ((<HttpErrorResponse>error).status) {
+                            case 401:
+                                return this.handle401Error(req, error, next);
+                            default:
+                                return this.handleError(error);
                         }
                     }
                     else {
-                        return this._handleError(error);
+                        return this.handleError(error);
                     }
                 }
                 else {
-                    return this._handleError({
+                    return this.handleError({
                         status: -1,
                         message: 'DEVICE_OFFLINE'
                     })
@@ -45,8 +45,8 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
             });
     }
 
-    private _handleError(err: any) : Promise<any> {
-        if (err && err.error) {
+    handleError(err: any) {
+        if(err && err.error){
             return Promise.reject(err.error);
         }
         else {
@@ -54,53 +54,92 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
         }
     }
 
-    private _handle401Error(req: HttpRequest<any>, err: any, next: HttpHandler) : Observable<any> | Promise<any> {
+    handle401Error(req: HttpRequest<any>, err: any, next: HttpHandler) {
         const authService: AuthService = this.injector.get(AuthService);
         const userService: UserService = this.injector.get(UserService);
 
         // If the user is logged the session was expired so I will try to refresh that token
-        if (userService.isLogged()) {
-            if (!this._isRefreshingToken) {
-                this._isRefreshingToken = true;
+        if(userService.isLogged()){
+            if (!this.isRefreshingToken) {
+                this.isRefreshingToken = true;
 
                 // Reset here so that the following requests wait until the token
                 // comes back from the refreshToken call.
-                this._tokenSubject.next(null);
+                this.tokenSubject.next(null);
 
                 return authService.fetchAccessToken()
                     .switchMap((newToken: string) => {
-                        if (newToken) {
-                            this._tokenSubject.next(newToken);
-                            return next.handle(this._updateTokenInRequest(req, newToken));
-                        }
+                          if (newToken) {
+                              this.tokenSubject.next(newToken);
+                              return next.handle(this.updateTokenInRequest(req, newToken));
+                          }
 
-                        // If we don't get a new token, we are in trouble so logout.
-                        userService.logout(LoginStates.THROW_OUT);
-                        return this._handleError(err);
+                          // If we don't get a new token, we are in trouble so logout.
+                          userService.logout(LoginStates.THROW_OUT);
+                          return this.handleError(err);
                     })
-                    .catch(() => {
+                    .catch(error => {
                         // If there is an exception calling 'refreshToken', bad news so logout.
                         userService.logout(LoginStates.THROW_OUT);
-                        return this._handleError(err);
+                        return this.handleError(err);
                     })
                     .finally(() => {
-                        this._isRefreshingToken = false;
+                        this.isRefreshingToken = false;
                     });
             }
-            else if (req.url.includes('getAccessToken')) {
-                return this._handleError(err);
+            else if(req.url.includes('getAccessToken')) {
+                return this.handleError(err);
             }
             else {
-                return this._tokenSubject
+                return this.tokenSubject
                     .filter(token => token != null)
                     .take(1)
                     .switchMap(token => {
-                        return next.handle(this._updateTokenInRequest(req, token as string));
+                        return next.handle(this.updateTokenInRequest(req, <string>token));
                     });
             }
         }
         else {
-            return this._handleError(err);
+            const isPublic = userService.isPublicAccess();
+            // If the current "user" is a public user get a new accessToken
+            if(isPublic){
+                if (!this.isRefreshingToken) {
+                    this.isRefreshingToken = true;
+
+                    // Reset here so that the following requests wait until the token
+                    // comes back from the refreshToken call.
+                    this.tokenSubject.next(null);
+
+                    // Get the new accessToken from server
+                    return Observable.fromPromise(authService.fetchPublicAccess())
+                        .switchMap((newToken: string) => {
+                            // If its all ok, reply previous requests
+                            if (newToken) {
+                                this.tokenSubject.next(newToken);
+                                return next.handle(this.updateTokenInRequest(req, newToken));
+                            }
+                            return this.handleError(err);
+                        })
+                        .catch((err: Error) => {
+                            return this.handleError(err);
+                        });
+                }
+                else if(req.url.includes('authentication/public')) {
+                    return this.handleError(err);
+                }
+                else {
+                    return this.tokenSubject
+                        .filter(token => token != null)
+                        .take(1)
+                        .switchMap(token => {
+                            return next.handle(this.updateTokenInRequest(req, <string>token));
+                        });
+                }
+            }
+            // Otherwise I'm trying to login, but the credentials are not correct
+            else {
+                return this.handleError(err);
+            }
         }
     }
 
@@ -110,11 +149,11 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
      * @param  {string} token New token to add in the Authorization header
      * @returns HttpRequest
      */
-    private _updateTokenInRequest(req: HttpRequest<any>, token: string): HttpRequest<any> {
+    updateTokenInRequest(req: HttpRequest<any>, token: string): HttpRequest<any> {
         let headersKeys = req.headers.keys();
         let clonedHeaders: {[name: string]: string } = {};
         headersKeys.forEach((header: string) => {
-            clonedHeaders[header] = req.headers.get(header) as string;
+            clonedHeaders[header] = <string>req.headers.get(header);
         });
         clonedHeaders['Authorization'] = `Bearer ${token}`;
         return req.clone({ setHeaders: clonedHeaders});

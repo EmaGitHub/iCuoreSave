@@ -1,0 +1,42 @@
+<!-- Generated template for the FindDaeBlockComponent component -->
+<div (tap)="navigateToFindDaeList()">
+
+    <ion-item id="homeButton">
+
+        <ion-row>
+            <ion-col col-9>
+                <ion-row padding-left padding-right padding-top>
+                    <h1 text-wrap>{{'FIND_DAE' | translate}}</h1>
+                </ion-row>
+
+                <ion-row padding-left padding-right padding-bottom>
+                    <p text-wrap padding-right>{{'FIND_DAE_DESCRIPTION' | translate}}</p>
+                </ion-row>
+            </ion-col>
+
+            <ion-col col-3>
+                <ion-icon id="daeIcon" name="ics-dae-search"></ion-icon>
+            </ion-col>
+
+
+        </ion-row>
+
+
+    </ion-item>
+
+    <img src="assets/imgs/find-dae-banner.png">
+
+</div>
+
+<ion-row id="segmentButtonsRow">
+    <ion-col text-center no-padding>
+
+        <button ion-button id="segmentButton" style="text-transform: none;" (tap)="navigateToFindDaeMap()">{{'DAE_MAP' | translate}}</button>
+
+    </ion-col>
+    <ion-col text-center no-padding>
+
+        <button ion-button id="segmentButton" style="text-transform: none;" (tap)="navigateToFindDaeList()">{{'DAE_LIST' | translate}}</button>
+
+    </ion-col>
+</ion-row>

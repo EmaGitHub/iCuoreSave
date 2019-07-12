@@ -1,0 +1,23 @@
+<!-- Generated template for the ListItemComponent component -->
+<ion-card no-lines (tap)="navigateToDaeDetail()">
+
+    <ion-col col-2>
+
+        <img *ngIf="dae._available == true" src="assets/imgs/icons/pin_dae_on.png" />
+        <img *ngIf="dae._available == false" src="assets/imgs/icons/pin_dae_off.png" />
+
+    </ion-col>
+
+    <ion-col col-8>
+
+        <div class="crop">
+            <strong class="capitalize">{{dae._indirizzo | lowercase}} </strong>
+        </div>
+        <p class="location">({{dae._comune}})</p>
+        <small>{{dae._distanza}} dalla tua posizione</small>
+
+
+    </ion-col>
+
+
+</ion-card>

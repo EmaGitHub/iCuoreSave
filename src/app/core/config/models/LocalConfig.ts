@@ -16,29 +16,29 @@ export const LocalConfig = {
     backend: {
         environment: 'PROD',
         baseUrl: 'https://ionictemplate.com/api',
-        api: [
+        api : [
             {
-                name: 'credentials',
+                name : 'credentials',
                 method: 'POST',
-                headers: {
+                headers : {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 url: '/authentication/credentials'
             },
             {
-                name: 'public',
+                name : 'public',
                 method: 'POST',
                 url: '/authentication/public'
             },
             {
-                name: 'getAccessToken',
-                method: 'POST',
-                url: '/authentication/getAccessToken'
+                name : 'getAccessToken',
+                method : 'POST',
+                url : '/authentication/getAccessToken'
             },
             {
-                name: 'getUserProfile',
+                name : 'getUserProfile',
                 method: 'POST',
-                url: '/core/graphql'
+                url : '/core/graphql'
             }
         ]
     },

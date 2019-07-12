@@ -5,7 +5,7 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { NavigationService } from './navigation.service';
 
 @NgModule({
-    providers: [
+    providers : [
         LaunchNavigator,
         Geolocation,
         NavigationService

@@ -22,7 +22,7 @@ import { ConfigModuleOptions } from './models/ConfigModuleOptions';
     ]
 })
 export class ConfigModule {
-    constructor(@Optional() @SkipSelf() parentModule: ConfigModule) {
+    constructor (@Optional() @SkipSelf() parentModule: ConfigModule) {
         if (parentModule) {
             throw new Error('ConfigModule is already loaded');
         }
@@ -33,7 +33,7 @@ export class ConfigModule {
     * @param  {ConfigModuleOptions} options all available configuration for <ConfigModule>
     * @returns {ModuleWithProviders}
     */
-    public static forRoot(options: ConfigModuleOptions): ModuleWithProviders {
+    static forRoot(options: ConfigModuleOptions): ModuleWithProviders {
         return {
             ngModule: ConfigModule,
             providers: [

@@ -1,0 +1,64 @@
+    emergencies-block {
+        #background {
+            background-color: white;
+            border: 1px rgb(175, 172, 172) solid;
+            position: relative;
+        }
+        .center {
+            text-align: center;
+        }
+        #centralRedButton {
+            position: relative;
+            bottom: 22px;
+            height: 40px;
+            background-color: color($colors, red);
+            color: white;
+            border: 1px color($colors, red) solid;
+            border-radius: 50vw;
+        }
+        #centralGrayButton {
+            position: relative;
+            width: 70vw;
+            bottom: 22px;
+            height: 40px;
+            background-color: color($colors, gray);
+            color: black;
+            border: 1px gray solid;
+            border-radius: 50vw;
+        }
+        #heartImage {
+            width: 35px !important;
+        }
+        span {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+        #redSpinner {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            top: 5px;
+            * {
+                stroke: map-get($colors, red);
+            }
+            &.spinner-circles circle,
+            &.spinner-bubbles circle,
+            &.spinner-dots circle {
+                fill: map-get($colors, red);
+            }
+        }
+        #blackSpinner {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            right: 10px;
+            * {
+                stroke: black;
+            }
+            &.spinner-circles circle,
+            &.spinner-bubbles circle,
+            &.spinner-dots circle {
+                fill: black;
+            }
+        }
+    }

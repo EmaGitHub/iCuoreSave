@@ -3,5 +3,5 @@ export class ConfigModuleOptions {
         public remote?: string,
         public local?: any,
         public storePrefix?: string
-    ) { }
+    ){ }
 }

@@ -1,0 +1,55 @@
+page-home {
+    #homeButton {
+        border: 1px rgb(175, 172, 172) solid;
+        padding: 0px;
+    }
+    ion-row p {
+        color: gray;
+    }
+    .label {
+        margin: 0 !important;
+    }
+    .col {
+        margin: 0px !important;
+        padding: 0px !important;
+    }
+    #segmentButton {
+        width: 35vw;
+        padding-left: 8vw;
+        padding-right: 8vw;
+        margin-top: 0;
+        height: 6vh;
+        background-color: white;
+        color: green;
+        border: 1px green solid;
+        border-radius: 50vw;
+    }
+    #segmentButtonsRow {
+        padding: 0px !important;
+        margin: 0 !important;
+        position: relative;
+        bottom: 3vh;
+    }
+    #headerImage {
+        height: 30px;
+    }
+    #icon {
+        font-size: 33px;
+    }
+    #findDae {
+        position: relative !important;
+        margin-left: 16px;
+        margin-right: 16px;
+        top: 55px;
+    }
+    #ionContent {
+        background-color: map-get($colors, gray)
+    }
+    #emergencies {
+        position: relative;
+        top: 55px;
+    }
+    .marginBott {
+        margin-bottom: 50px;
+    }
+}

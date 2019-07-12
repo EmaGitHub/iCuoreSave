@@ -1,0 +1,22 @@
+<navbar [page]="'HOME'"></navbar>
+
+<ion-content padding-top id="ionContent">
+
+    <!-- con animazione -->
+    <div *ngIf="animations" [@elementState]="state" id="emergencies">
+        <emergencies-block #emergenciesBlock></emergencies-block>
+    </div>
+    <div *ngIf="!animations && beforeLogout" id="emergencies">
+        <emergencies-block #emergenciesBlock></emergencies-block>
+    </div>
+
+    <!-- senza animazione -->
+    <div *ngIf="animations" id="findDae" [@elementStateFind]="stateFind">
+
+        <dae-block></dae-block>
+    </div>
+    <div *ngIf="!animations" id="findDae">
+        <dae-block></dae-block>
+    </div>
+
+</ion-content>

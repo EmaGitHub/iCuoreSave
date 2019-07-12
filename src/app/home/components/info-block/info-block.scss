@@ -1,0 +1,25 @@
+    info-block {
+        #background {
+            height: 25vh;
+            background-color: rgb(70, 70, 70);
+            color: white;
+            margin-bottom: 7vh;
+            border: 1px rgb(175, 172, 172) solid;
+        }
+        .center {
+            text-align: center;
+        }
+        #grayButton {
+            position: relative;
+            width: 70vw;
+            top: 2vh;
+            left: 0vw;
+            height: 6vh;
+            background-color: white;
+            color: black;
+            border-radius: 50vw;
+        }
+        .center {
+            text-align: center;
+        }
+    }

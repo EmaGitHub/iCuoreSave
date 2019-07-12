@@ -1,0 +1,36 @@
+        page-settings {
+            #content {
+                padding-top: 6vh;
+            }
+            ion-item ion-icon {
+                font-size: 40px !important; //Preferred size here
+                color: map-get($colors, blue)
+            }
+            #desc {
+                /*close enough*/
+                overflow: hidden;
+                white-space: pre-wrap;
+                /* CSS3 */
+                white-space: -moz-pre-wrap;
+                /* Firefox */
+                white-space: -pre-wrap;
+                /* Opera <7 */
+                white-space: -o-pre-wrap;
+                /* Opera 7 */
+                word-wrap: break-word;
+                /* IE */
+            }
+            .item-md {
+                padding-left: 0;
+            }
+            #toggle {
+                position: relative;
+                left: 12px;
+            }
+            .scroll-content {
+                padding-left: 0px !important;
+            }
+            .label-md {
+                margin: 13px 8px 13px 8px !important;
+            }
+        }

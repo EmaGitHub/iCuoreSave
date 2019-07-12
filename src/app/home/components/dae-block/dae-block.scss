@@ -1,0 +1,32 @@
+dae-block {
+    h1 {
+        font: italic bold 12px/30px Georgia, serif;
+    }
+    #homeButton {
+        border: 1px rgb(175, 172, 172) solid;
+        padding: 0px;
+    }
+    #segmentButton {
+        width: 35vw;
+        padding-left: 8vw;
+        padding-right: 8vw;
+        margin-top: 0;
+        background-color: white;
+        color: green;
+        border: 1px green solid;
+        border-radius: 50vw;
+    }
+    #segmentButtonsRow {
+        padding: 0px !important;
+        margin: 0 !important;
+        position: relative;
+    }
+    ion-item ion-icon {}
+    #daeIcon {
+        font-size: 65px !important; //Preferred size here
+        color: map-get($colors, green);
+        position: relative;
+        left: 20px;
+        top: 10px;
+    }
+}

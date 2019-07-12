@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { TabsService } from '@app/tabs';
 import { ConfigService } from '@core/config';
 import { DeviceService } from '@core/device';
-import { FCMService } from '@core/fcm';
 import { LoggerService } from '@core/logger';
+import { PushNotificationsService } from '@core/push-notifications';
 import { UserService } from '@core/user';
 import { VersioningService } from '@core/versioning';
 import { I18nService } from '@shared/i18n';
+import { App } from 'ionic-angular';
+
+import { HomePage } from '../home/pages/home/home';
 
 @Component({
     selector: 'app-starter',
@@ -16,19 +18,19 @@ export class Starter {
     public status: string = '';
 
     constructor(
-        private tabsService: TabsService,
+        private appCtrl: App,
         private configService: ConfigService,
         private deviceService: DeviceService,
         private i18nService: I18nService,
         private logger: LoggerService,
         private userService: UserService,
-        private fcmService: FCMService,
+        private pushNotificationsService: PushNotificationsService,
         private versioningService: VersioningService
     ) {
 
     }
 
-    public ionViewDidEnter(): void {
+    ionViewDidEnter(){
         this.status = '';
 
         // Wait for config and translations configurations completed
@@ -36,6 +38,11 @@ export class Starter {
             this.configService.initCompleted,
             this.i18nService.initCompleted
         ];
+        // If the app can make an autologin also wait for
+        // push notification complete because after login the app calls the API
+        if(!this.userService.isFirstAccess()){
+            servicesToWait.push(this.pushNotificationsService.initCompleted);
+        }
 
         Promise.all(servicesToWait).then(
             () => {
@@ -45,10 +52,10 @@ export class Starter {
                         // Try autologin
                         this.userService.autologin().then(
                             () => {
-                                this._loadTabsPage();
+                                this.loadHomePage();
                             },
                             () => {
-                                this._loadTabsPage();
+                                this.loadHomePage();
                             }
                         )
                     },
@@ -68,7 +75,8 @@ export class Starter {
     /**
      * Go to tabsPage if not already exists
      */
-    private _loadTabsPage(): void {
-        this.tabsService.loadTabsPage();
+    private loadHomePage(){
+        this.appCtrl.getRootNavs()[0].setRoot(HomePage);
+        this.deviceService.hideSplashscreen();
     }
 }

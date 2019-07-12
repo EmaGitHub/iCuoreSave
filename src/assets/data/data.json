@@ -1,0 +1,118 @@
+[{
+
+        "name": "Farmacia Rossi",
+        "description": "DAE presente all'interno dell'esercizio commerciale",
+        "address": "Piazza dell Repubblica",
+        "city": "Firenze",
+        "distance": "10 km dalla tua posizione",
+        "id": "1",
+        "active": true,
+        "availability": "lunedì - venerdì \\n 09.00 - 13.00, 16.00 - 19.30 \\n\\n  sabato \\n 9.00 - 13.00",
+        "contacts": "055 8723453"
+
+    },
+    {
+
+        "name": "Farmacia Verdi",
+        "description": "DAE presente all'interno dell'esercizio commerciale",
+        "address": "Piazza Ferrucci",
+        "city": "Firenze",
+        "distance": "20 km dalla tua posizione",
+        "id": "2",
+        "active": true,
+        "availability": "lunedì - venerdì \\n\\n 09.00 - 13.00, 16.00 - 19.30 \\n\\n sabato \\n\\n 9.00 - 13.00",
+        "contacts": "055 8723453"
+
+    },
+    {
+
+        "name": "Farmacia Santi",
+        "description": "DAE presente all'interno dell'esercizio commerciale",
+        "address": "Via Mascagni",
+        "city": "Firenze",
+        "distance": "23 km dalla tua posizione",
+        "id": "3",
+        "active": false,
+        "availability": "lunedì - venerdì \\n\\n 09.00 - 13.00, 16.00 - 19.30 \\n\\n sabato \\n\\n 9.00 - 13.00",
+        "contacts": "055 8723453"
+
+    },
+    {
+
+        "name": "Farmacia Rossi",
+        "description": "DAE presente all'interno dell'esercizio commerciale",
+        "address": "Via XXIV Maggio",
+        "city": "Firenze",
+        "distance": "15 km dalla tua posizione",
+        "id": "4",
+        "active": true,
+        "availability": "lunedì - venerdì \\n\\n 09.00 - 13.00, 16.00 - 19.30 \\n\\n sabato \\n\\n 9.00 - 13.00",
+        "contacts": "055 8723453"
+
+    },
+    {
+
+        "name": "Farmacia Rossi",
+        "description": "DAE presente all'interno dell'esercizio commerciale",
+        "address": "Via Verdi",
+        "city": "Firenze",
+        "distance": "10 km dalla tua posizione",
+        "id": "5",
+        "active": false,
+        "availability": "lunedì - venerdì \\n\\n 09.00 - 13.00, 16.00 - 19.30 \\n\\n sabato \\n\\n 9.00 - 13.00",
+        "contacts": "055 8723453"
+
+    },
+    {
+
+        "name": "Farmacia Rossi",
+        "description": "DAE presente all'interno dell'esercizio commerciale",
+        "address": "Piacca dell Repubblica",
+        "city": "Firenze",
+        "distance": "10 km dalla tua posizione",
+        "id": "6",
+        "active": false,
+        "availability": "lunedì - venerdì \\n\\n 09.00 - 13.00, 16.00 - 19.30 \\n\\n sabato \\n\\n 9.00 - 13.00",
+        "contacts": "055 8723453"
+
+    },
+    {
+
+        "name": "Farmacia Rossi",
+        "description": "DAE presente all'interno dell'esercizio commerciale",
+        "address": "Piacca dell Repubblica",
+        "city": "Firenze",
+        "distance": "10 km dalla tua posizione",
+        "id": "7",
+        "active": true,
+        "availability": "lunedì - venerdì \\n\\n 09.00 - 13.00, 16.00 - 19.30 \\n\\n sabato \\n\\n 9.00 - 13.00",
+        "contacts": "055 8723453"
+
+    },
+    {
+
+        "name": "Farmacia Rossi",
+        "description": "DAE presente all'interno dell'esercizio commerciale",
+        "address": "Piacca dell Repubblica",
+        "city": "Firenze",
+        "distance": "10 km dalla tua posizione",
+        "id": "7",
+        "active": true,
+        "availability": "lunedì - venerdì \\n\\n 09.00 - 13.00, 16.00 - 19.30 \\n\\n sabato \\n\\n 9.00 - 13.00",
+        "contacts": "055 8723453"
+
+    },
+    {
+
+        "name": "Farmacia Rossi",
+        "description": "DAE presente all'interno dell'esercizio commerciale",
+        "address": "Piacca dell Repubblica",
+        "city": "Firenze",
+        "distance": "10 km dalla tua posizione",
+        "id": "7",
+        "active": true,
+        "availability": "lunedì - venerdì \\n\\n 09.00 - 13.00, 16.00 - 19.30 \\n\\n sabato \\n\\n 9.00 - 13.00",
+        "contacts": "055 8723453"
+
+    }
+]

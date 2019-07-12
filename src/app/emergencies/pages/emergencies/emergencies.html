@@ -1,0 +1,75 @@
+<!--
+  Generated template for the EmergenciesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<navbar [page]="'EMERGENCY_LIST'"></navbar>
+
+
+<ion-content padding-top id="ionContent" *ngIf="isLoaded">
+
+    <div id="desc">
+        {{ "EMERGENCY_DESCRIPTION" | translate }}
+    </div>
+
+    <div id="spinnerDiv" *ngIf="loadingEmergencies" (tap)="fetchEmergencies()">
+        <ion-spinner name="bubbles"> </ion-spinner>
+        <br> Tap to retry
+    </div>
+
+    <ion-row *ngIf="animations" [@labelState]='state' padding-top>
+        <ion-col col-2>
+            <ion-icon id="emergency-icon" name="ics-emergency"></ion-icon>
+        </ion-col>
+        <ion-col col-10>
+            <strong id="red-label">{{emergencies?.length}} Emergencies</strong>
+            <br> {{ "EMERGENCY_CLOSE" | translate }}
+        </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!animations" padding-top>
+        <ion-col col-2>
+            <ion-icon id="emergency-icon" name="ics-emergency"></ion-icon>
+        </ion-col>
+        <ion-col col-10>
+            <strong id="red-label">{{emergencies?.length}} Emergencies</strong>
+            <br> {{ "EMERGENCY_CLOSE" | translate }}
+        </ion-col>
+    </ion-row>
+
+    <br>
+
+    <div *ngIf="animations">
+        <div id="spinnerDiv" *ngIf="refreshEmergenciesVisible" (tap)="fetchEmergencies()">
+            <div class="centered">
+                Connection problem
+                <br> Tap to retry
+                <br>
+                <ion-spinner name="bubbles"> </ion-spinner>
+            </div>
+        </div>
+        <div [@emergenciesState]='state' *ngFor="let emergency of emergencies">
+
+            <div class="margin">
+                <emergency [emergency]="emergency"></emergency>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!animations">
+        <div id="spinnerDiv" *ngIf="refreshEmergenciesVisible" (tap)="fetchEmergencies()">
+            <div class="centered">
+                Connection problem
+                <br> Tap to retry
+                <br>
+                <ion-spinner name="bubbles"> </ion-spinner>
+            </div>
+        </div>
+        <div *ngFor="let emergency of emergencies">
+            <div class="margin">
+                <emergency [emergency]="emergency"></emergency>
+            </div>
+        </div>
+    </div>
+
+</ion-content>

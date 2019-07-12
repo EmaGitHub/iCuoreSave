@@ -6,7 +6,7 @@ import { DBModuleOptions } from './models/DBModuleOptions';
 /**
 * @name DBModule
 * @description
-* DBModule is an ngModule that imports a service to manage the local internal database
+* DBModule is an ngModule that imports a service to manage local DB storage
 */
 @NgModule({
     providers: [
@@ -14,18 +14,18 @@ import { DBModuleOptions } from './models/DBModuleOptions';
     ]
 })
 export class DBModule {
-    constructor(@Optional() @SkipSelf() parentModule: DBModule) {
+    constructor (@Optional() @SkipSelf() parentModule: DBModule) {
         if (parentModule) {
-            throw new Error('DBModule is already loaded');
+            throw new Error('DBModule is already loaded. Import it in the AppModule only');
         }
     }
 
     /**
-    * Allow to pass a <DBModuleOptions> configuration to services in DBModule
+    * Allow to pass a <DBModuleOptions> configuration to DBService
     * @param  {DBModuleOptions} options all available configuration for <DBModule>
     * @returns {ModuleWithProviders}
     */
-    public static forRoot(options: DBModuleOptions): ModuleWithProviders {
+    static forRoot(options?: Partial<DBModuleOptions>): ModuleWithProviders {
         return {
             ngModule: DBModule,
             providers: [

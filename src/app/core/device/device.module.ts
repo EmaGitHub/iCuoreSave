@@ -36,7 +36,7 @@ import { DeviceModuleOptions } from './models/DeviceModuleOptions';
     ]
 })
 export class DeviceModule {
-    constructor(@Optional() @SkipSelf() parentModule: DeviceModule) {
+    constructor (@Optional() @SkipSelf() parentModule: DeviceModule) {
         if (parentModule) {
             throw new Error('DeviceModule is already loaded. Import it in the AppModule only');
         }
@@ -47,7 +47,7 @@ export class DeviceModule {
     * @param  {DeviceModuleOptions} options all available configuration for <DeviceModule>
     * @returns {ModuleWithProviders}
     */
-    public static forRoot(options?: Partial<DeviceModuleOptions>): ModuleWithProviders {
+    static forRoot(options?: Partial<DeviceModuleOptions>): ModuleWithProviders {
         return {
             ngModule: DeviceModule,
             providers: [

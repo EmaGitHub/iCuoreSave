@@ -1,10 +1,11 @@
 import { HttpClientModule } from '@angular/common/http';
-import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import { ModuleWithProviders, NgModule, Optional, SkipSelf, Injector } from '@angular/core';
 import { IonicStorageModule } from '@ionic/storage';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 import { I18nService } from './i18n.service';
 import { I18nModuleOptions } from './models/I18nModuleOptions';
+import { CustomTranslateHttpLoader } from './models/CustomTranslateHttpLoader';
 
 /**
 * @name I18nModule
@@ -15,25 +16,24 @@ import { I18nModuleOptions } from './models/I18nModuleOptions';
 @NgModule({
     imports: [
         IonicStorageModule.forRoot(),
-        TranslateModule.forRoot(),
-        // TranslateModule.forRoot({
-        //     loader: {
-        //         provide: TranslateLoader,
-        //         useClass: CustomTranslateHttpLoader,
-        //         deps: [Injector]
-        //     }
-        // }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: CustomTranslateHttpLoader,
+                deps: [Injector]
+            }
+        }),
         HttpClientModule
     ],
     providers: [
         I18nService
     ],
-    exports: [
+    exports : [
         TranslateModule
     ]
 })
 export class I18nModule {
-    constructor(@Optional() @SkipSelf() parentModule: I18nModule) {
+    constructor (@Optional() @SkipSelf() parentModule: I18nModule) {
         if (parentModule) {
             throw new Error('I18nModule is already loaded');
         }
@@ -44,7 +44,7 @@ export class I18nModule {
     * @param  {I18nModuleOptions} options all available configuration for <I18nModule>
     * @returns {ModuleWithProviders}
     */
-    public static forRoot(options?: I18nModuleOptions): ModuleWithProviders {
+    static forRoot(options?: I18nModuleOptions): ModuleWithProviders {
         return {
             ngModule: I18nModule,
             providers: [

@@ -1,0 +1,8 @@
+
+export const PerformerRoles = [
+    'ESECUTORE',
+    'ESECUTORE_SANITARIO',
+    'FORMATORE_ISTRUTTORE',
+    'ISTRUTTORE',
+    'ISTRUTTORE_SANITARIO'
+]

@@ -1,57 +1,11 @@
-<ion-header no-border>
-    <ion-navbar color="primary">
-        <ion-title text-center class="left-padded"> {{ 'LOGIN' | translate }} </ion-title>
-    </ion-navbar>
-</ion-header>
+<navbar hideBackButton [page]="'REGISTRATION_TITLE'" [@elementState]="state"></navbar>
 
 <ion-content>
 
-    <div id="loginForm">
-        <h5 translate> LOGIN </h5>
-
-        <form (ngSubmit)="onLoginSubmit()" #loginForm="ngForm">
-            <ion-item class="login-input-container">
-                <ion-input
-                    [clearInput]="false"
-                    [placeholder]="'USERNAME' | translate"
-                    [(ngModel)]="username"
-                    name="username"
-                    autocapitalize="off"
-                    autocorrect="off"
-                    clearInput
-                    clearOnEdit="off"
-                    required></ion-input>
-            </ion-item>
-
-            <ion-item class="login-input-container">
-                <ion-input
-                    [clearInput]="false"
-                    [placeholder]="'PASSWORD' | translate"
-                    [(ngModel)]="password"
-                    type="password"
-                    name="password"
-                    autocapitalize="off"
-                    autocorrect="off"
-                    clearInput
-                    clearOnEdit="off"
-                    required></ion-input>
-            </ion-item>
-
-            <button
-                ion-button
-                class="login-button"
-                full
-                type="submit"
-                [disabled]="!loginForm.valid"> {{ 'LOGIN' | translate }} </button>
-
-            <button
-                ion-button
-                class="button-link"
-                clear
-                type="button"
-                tappable
-                (click)="onForgotPasswordClicked()"> {{ 'FORGOT_PASSWORD' | translate }} </button>
-        </form>
-    </div>
+    <overlaid-square [@elementState]="state"></overlaid-square>
 
 </ion-content>
+
+<ion-footer padding-top padding-bottom (tap)="goBack()" [@elementState]="state">
+    <div id="footer" text-center>ANNULLA</div>
+</ion-footer>

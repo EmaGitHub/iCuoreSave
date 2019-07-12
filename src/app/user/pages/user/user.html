@@ -1,0 +1,85 @@
+<!-- Generated template for the UserComponent component -->
+<navbar [page]="'PROFILE'"></navbar>
+
+<ion-content padding>
+
+    <div class="center">
+        <img class="avatar" src={{avatarUrl}} text-center/>
+    </div>
+
+
+
+    <ion-list>
+
+        <ion-item *ngIf="user.nome">
+            <h2>{{ 'PROFILE_FIRSTNAME' | translate }}</h2>
+            <p text-wrap>{{user.nome}}</p>
+        </ion-item>
+        <ion-item *ngIf="user.cognome">
+            <h2>{{ 'PROFILE_LASTNAME' | translate }}</h2>
+            <p text-wrap>{{user.cognome}}</p>
+        </ion-item>
+        <ion-item *ngIf="user.codFiscale">
+            <h2>{{ 'PROFILE_FISCAL_CODE' | translate }}</h2>
+            <p text-wrap>{{user.codFiscale}}</p>
+        </ion-item>
+        <ion-item *ngIf="user.email">
+            <h2>{{ 'PROFILE_EMAIL' | translate }}</h2>
+            <p text-wrap>{{user.email}}</p>
+        </ion-item>
+        <ion-item *ngIf="user.telefono">
+            <h2>{{ 'PROFILE_PHONE' | translate }}</h2>
+            <p text-wrap>{{user.telefono}}</p>
+        </ion-item>
+        <ion-item *ngIf="user.pec">
+            <h2>{{ 'PROFILE_PEC' | translate }}</h2>
+            <p text-wrap>{{user.pec}}</p>
+        </ion-item>
+
+    </ion-list>
+
+
+    <ion-list *ngIf="showResidence">
+
+        <ion-item *ngIf="user.nome">
+            <h2>{{ 'PROFILE_ADDRESS_STREET' | translate }}</h2>
+            <p text-wrap>{{user.residenza}} {{user.residenza.via}}</p>
+        </ion-item>
+        <ion-item *ngIf="user.cognome">
+            <h2>{{ 'PROFILE_ADDRESS_CITY_CODE' | translate }}</h2>
+            <p text-wrap>{{user.residenza}} {{user.resudenza.codComune}} </p>
+        </ion-item>
+        <ion-item *ngIf="user.codFiscale">
+            <h2>{{ 'PROFILE_ADDRESS_DISTRICT_CODE' | translate }}</h2>
+            <p text-wrap>{{user.residenza}} {{user.resudenza.codProvincia}}</p>
+        </ion-item>
+        <ion-item *ngIf="user.email">
+            <h2>{{ 'PROFILE_ADDRESS_AREA_CODE' | translate }}</h2>
+            <p text-wrap>{{user.residenza}} {{user.resudenza.cap}}</p>
+        </ion-item>
+
+    </ion-list>
+
+
+    <ion-list *ngIf="showDomicile">
+
+        <ion-item *ngIf="user.nome">
+            <h2>{{ 'PROFILE_ADDRESS_STREET' | translate }}</h2>
+            <p text-wrap>{{user.domicilio}} {{user.domicilio.via}}</p>
+        </ion-item>
+        <ion-item *ngIf="user.cognome">
+            <h2>{{ 'PROFILE_ADDRESS_CITY_CODE' | translate }}</h2>
+            <p text-wrap>{{user.domicilio}} {{user.domicilio.codComune}} </p>
+        </ion-item>
+        <ion-item *ngIf="user.codFiscale">
+            <h2>{{ 'PROFILE_ADDRESS_DISTRICT_CODE' | translate }}</h2>
+            <p text-wrap>{{user.domicilio}} {{user.domicilio.codProvincia}}</p>
+        </ion-item>
+        <ion-item *ngIf="user.email">
+            <h2>{{ 'PROFILE_ADDRESS_AREA_CODE' | translate }}</h2>
+            <p text-wrap>{{user.domicilio}} {{user.domicilio.cap}}</p>
+        </ion-item>
+
+    </ion-list>
+
+</ion-content>

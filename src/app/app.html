@@ -1,4 +1,78 @@
-<ion-nav
-    class="main-app"
-    [root]="rootPage"
-    [ngClass]="{ 'content-hidden' : userIsNotLogged }"></ion-nav>
+<ion-split-pane>
+    <!--  our side menu  -->
+
+    <ion-menu persistent="true" [content]="content" id="menuHome">
+
+        <ion-header>
+            <ion-toolbar color="red">
+                <img src="assets/imgs/menuHeart.png" id="menuImage" />
+                <ion-title id="menuTitle">iCuore SAVE</ion-title>
+                <button *ngIf="!userIsLogged;else other_content" ion-button round outline id="registerButton" (tap)="openLoginPage()" menuClose>
+                    <div id="registerLabel">
+                    <ion-icon id="loginIcon"  name="ics-login" color="light"> </ion-icon> 
+                    {{'LOGIN_AS_PERFORMER' | translate}}
+                </div>
+                    <ion-icon name="ios-arrow-forward" color="light" id="arrowLoginIcon"> </ion-icon> 
+                </button>
+                <ng-template #other_content>
+                    <button ion-button round outline id="registerButton" (tap)="openUserPage()" menuClose>
+                        <div id="accountLabel">
+                        <ion-icon id="accountIcon" name="ics-account" color="light"> </ion-icon> 
+                        {{user.nome}} {{user.cognome}}
+                    </div>
+                        <ion-icon name="ios-arrow-forward" color="light" id="arrowLoginIcon"> </ion-icon> 
+                    </button>
+                </ng-template>
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+
+            <ion-list id="sidenav">
+                <!-- menu items -->
+                <hr>
+                <ion-item tappable class="menuButton" (tap)="openHomePage()" menuClose>
+                    <ion-icon id="sectionIcon" name="ics-home" item-start></ion-icon>
+                    {{'HOME' | translate}}
+                    <ion-icon id="arrowIcon" name="ios-arrow-forward" item-end> </ion-icon>
+                </ion-item>
+                <ion-item tappable *ngIf="userIsLogged" class="menuButton" (tap)="openEmergenciesPage()" menuClose>
+                    <ion-icon id="sectionIcon" name="ics-emergency" item-left></ion-icon>
+                    {{'EMERGENCY' | translate}}
+                    <ion-icon id="arrowIcon" name="ios-arrow-forward" item-right> </ion-icon>
+                </ion-item>
+                <ion-item tappable class="menuButton" (tap)="openFindDaePage()" menuClose>
+                    <ion-icon id="sectionIcon" name="ics-dae" item-left></ion-icon>
+                    {{'FIND_DAE' | translate}}
+                    <ion-icon id="arrowIcon" name="ios-arrow-forward" item-right> </ion-icon>
+                </ion-item>
+                <ion-item tappable class="menuButton" (tap)="openInfoPage()" menuClose>
+                    <ion-icon id="sectionIcon" name="ics-info" item-left></ion-icon>
+                    {{'INFO' | translate}}
+                    <ion-icon id="arrowIcon" name="ios-arrow-forward" item-right> </ion-icon>
+                </ion-item>
+                <ion-item tappable *ngIf="userIsLogged" class="menuButton" (tap)="openSettingsPage()" menuClose>
+                    <ion-icon id="sectionIcon" name="ics-cog" item-left></ion-icon>
+                    {{'SETTINGS' | translate}}
+                    <ion-icon id="arrowIcon" name="ios-arrow-forward" item-right> </ion-icon>
+                </ion-item>
+                <ion-item tappable *ngIf="!userIsLogged" no-lines class="menuButton" (tap)="openSettingsPage()" menuClose>
+                    <ion-icon id="sectionIcon" name="ics-cog" item-left></ion-icon>
+                    {{'SETTINGS' | translate}}
+                    <ion-icon id="arrowIcon" name="ios-arrow-forward" item-right> </ion-icon>
+                </ion-item>
+                <ion-item tappable *ngIf="userIsLogged" no-lines class="menuButton" (tap)="logout()" menuClose>
+                    <ion-icon id="sectionIcon" name="ics-logout" item-left></ion-icon>
+                    {{'LOGOUT' | translate}}
+                    <ion-icon id="arrowIcon" name="ios-arrow-forward" item-right> </ion-icon>
+                </ion-item>
+                <hr>
+                <!-- menu items -->
+            </ion-list>
+        </ion-content>
+
+    </ion-menu>
+
+    <!-- the main content -->
+    <ion-nav main #content [root]="rootPage "></ion-nav>
+</ion-split-pane>

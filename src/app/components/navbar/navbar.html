@@ -1,0 +1,55 @@
+<div [ngSwitch]="page">
+    <div *ngSwitchCase="'REGISTRATION_TITLE'">
+
+        <ion-header no-border>
+            <ion-navbar class="navbarStyle">
+                <button ion-button menuToggle color="red">
+                        <ion-icon id="icon" name="menu"></ion-icon>
+                    </button>
+                <ion-title text-center>
+                    <img src="assets/imgs/iCuore_header.png" id="headerImage" />
+                </ion-title>
+            </ion-navbar>
+        </ion-header>
+
+    </div>
+
+    <div *ngSwitchCase="'HOME'">
+
+        <ion-header no-border>
+            <ion-navbar class="navbarStyle">
+                <button ion-button menuToggle color="red">
+                        <ion-icon id="icon" name="menu"></ion-icon>
+                    </button>
+                <ion-title text-center>
+                    <img src="assets/imgs/iCuore_header.png" id="headerImage" />
+                </ion-title>
+            </ion-navbar>
+        </ion-header>
+
+
+    </div>
+
+
+    <div *ngSwitchDefault>
+
+
+        <ion-header no-border [@elementState]="state">
+            <ion-navbar class="navbarStyle" hideBackButton>
+                <button tappable *ngIf="menu" ion-button menuToggle color="red">
+                <ion-icon id="icon" name="menu"></ion-icon>
+            </button>
+
+                <div *ngIf="back" id="backIcon">
+                    <ion-icon tappable id="back-icon" name="arrow-back" (tap)="goBack()"></ion-icon>
+                    <ion-title id="titleWithBack" text-center> {{ page | translate }} </ion-title>
+                </div>
+                <ion-title *ngIf="!back" text-center> {{ page | translate }} </ion-title>
+                <emergencies-call-button id="backIcon" *ngIf='page === "EMERGENCY_LIST" || page === "EMERGENCY" '></emergencies-call-button>
+            </ion-navbar>
+        </ion-header>
+
+
+    </div>
+
+</div>

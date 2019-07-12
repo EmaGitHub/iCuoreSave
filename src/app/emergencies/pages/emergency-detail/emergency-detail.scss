@@ -1,0 +1,107 @@
+page-emergency-detail {
+    #cont {
+        margin: 10px;
+        margin-bottom: 0;
+        border: 1px gray solid;
+        border-radius: 10px;
+        margin-top: 55px;
+        background: white;
+    }
+    #map {
+        margin-top: 13px;
+        height: 67vh;
+    }
+    #navButtons {
+        height: 60px;
+    }
+    #segmentButtonsRow {
+        padding: 0px !important;
+        margin: 0 !important;
+        position: relative;
+        top: 10px;
+    }
+    #spinnerDiv {
+        position: relative;
+        top: 30vh;
+        z-index: 30;
+    }
+    .navButtonUnselected {
+        border: 1px solid map-get($colors, blue);
+        border-radius: 20px;
+        padding-left: 4vw;
+        padding-right: 4vw;
+        margin-top: 0;
+        height: 40px;
+        background-color: white;
+        color: map-get($colors, blue);
+    }
+    .navButtonSelected {
+        border-radius: 20px;
+        padding-left: 4vw;
+        padding-right: 4vw;
+        margin-top: 0;
+        height: 40px;
+        background-color: map-get($colors, blue);
+        color: white;
+    }
+    #topButton {
+        border-radius: 20px;
+        padding-left: 4vw;
+        padding-right: 4vw;
+        height: 40px;
+        background-color: map-get($colors, blue);
+        color: white;
+        position: relative;
+        bottom: 2px;
+    }
+    #sonoSulPostoDiv {
+        border: 1px solid map-get($colors, blue);
+        border-radius: 20px;
+        height: 40px;
+        width: 60px;
+        font-size: 12px;
+        text-align: center;
+        color: map-get($colors, blue);
+        width: 43vw;
+    }
+    #sonoSulPostoIcon {
+        position: relative;
+        height: 25px;
+        width: 25px;
+        top: 8px;
+        right: 3px;
+    }
+    #labelButton {
+        font-size: 14px;
+    }
+    #navButton ion-icon {
+        color: map-get($colors, blue);
+        font-size: 20px;
+    }
+    #map_canvas {
+        text-align: center;
+        height: 100%;
+        width: 100%;
+        z-index: 10;
+    }
+    #blackIcon {
+        font-size: 3vh;
+    }
+    #spinnerDiv {
+        position: relative;
+        top: 30vh;
+        z-index: 30;
+    }
+    .centered {
+        text-align: center;
+    }
+    .loadingProblem {
+        position: relative;
+        top: 10px;
+        z-index: 30;
+        margin: 0 70px;
+        background-color: lightgrey;
+        padding: 10px 0;
+        border: 1px black solid;
+    }
+}

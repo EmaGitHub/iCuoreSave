@@ -7,20 +7,20 @@ import { IonicPage, NavParams, ViewController } from 'ionic-angular';
     templateUrl: 'modal-nav.html',
 })
 export class ModalNavPage {
-    public modalPage: any;
-    public modalParams: any = { };
+    modalPage: any;
+    modalParams: any = { };
 
     constructor(
         public navParams: NavParams,
         public viewCtrl: ViewController
     ) { }
 
-    public ionViewDidLoad(): void {
+    ionViewDidLoad() {
         console.log('ionViewDidLoad ModalNavPage');
         this.modalPage = this.navParams.get('page');
     }
 
-    public dismissModal(): void {
+    dismissModal() {
         this.viewCtrl.dismiss();
     }
 }

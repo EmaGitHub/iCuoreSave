@@ -7,14 +7,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
-import { Api } from './models/Api';
+import { Api } from './models/api';
 import { Backend } from './models/Backend';
 import { HttpClientOptions } from './models/HttpClientOptions';
 import { ResponseTypes } from './models/ResponseTypes';
 
 @Injectable()
 export class ApiService {
-    private _backend: Backend|null = null;
+    backend: Backend|null = null;
 
     constructor(
         private http: HttpClient
@@ -24,8 +24,8 @@ export class ApiService {
      * Init the Api Service with configuration fetched from config file
      * @param backend Beckend configuration for Api Service
      */
-    public init(backend: Backend) : void {
-        this._backend = new Backend(backend);
+    init(backend: Backend) {
+        this.backend = new Backend(backend);
     }
 
     /**
@@ -40,25 +40,25 @@ export class ApiService {
      * @param  {ResposeTypes} responseType? HTTP response type for request
      * @returns Promise
      */
-    public callApi<T>(
-        apiName: string,
-        options: {
-			params?: {};
-			paths?: {};
-			body?: any;
-            headers?: {};
-            observe? : HttpObserve;
-			responseType?: ResponseTypes;
+    callApi<T>(
+		apiName: string,
+		options: {
+			params?: {},
+			paths?: {},
+			body?: any,
+            headers?: {},
+            observe? : HttpObserve,
+			responseType?: ResponseTypes
 		} = {}
     ): Observable<T> {
         // Use getApi in configService to define all options for api
-        let api = Object.assign({},(this._backend as Backend).getApi(apiName));
+        let api = (this.backend as Backend).getApi(apiName);
 
-        if (api) {
+        if(api){
             // Set the request's url
-            api.url = this._prepareUrl(api.url, options.paths);
+            api.url = this.prepareUrl(api.url, options.paths);
 
-            let httpClientOptions = this._prepareOptions(api, options);
+            let httpClientOptions = this.prepareOptions(api, options);
 
             return this.call(api, httpClientOptions);
         }
@@ -74,9 +74,9 @@ export class ApiService {
      * @param {object={}} paths a path params
      * @return {string} api's url
      */
-    private _prepareUrl(url: string, paths?: {}): string {
+    private prepareUrl(url: string, paths?: {}): string {
         return paths && Object.keys(paths).length
-            ? this._bindPathParams(url, paths)
+            ? this.bindPathParams(url, paths)
             : url;
     }
 
@@ -86,21 +86,21 @@ export class ApiService {
      * @param {object={}} paths object key => val
      * @return {string}
      */
-    private _bindPathParams(url: string, params: {[key: string]: any }): string {
+    private bindPathParams(url: string, params: {[key: string]: any }): string {
         for (const key in params) {
             url = url.replace(new RegExp(`{${key}}`, 'g'), params[key]);
         }
         return url;
     }
 
-    private _prepareOptions(
+    private prepareOptions(
         api: Api,
-        options: {
-			params?: {};
-			body?: any;
-            headers?: {};
-            observe? : HttpObserve;
-			responseType?: ResponseTypes;
+		options: {
+			params?: {},
+			body?: any,
+            headers?: {},
+            observe? : HttpObserve,
+			responseType?: ResponseTypes
 		} = {}
     ): HttpClientOptions {
 
@@ -108,21 +108,21 @@ export class ApiService {
         let httpClientOptions = new  HttpClientOptions();
 
         // Add all requested HttpParams
-        if (!options.params) {
+        if(!options.params){
             options.params = {};
         }
         let queryParams = new HttpParams();
-        for (let qKey in options.params) {
-            queryParams = queryParams.set(qKey, (options.params as any)[qKey]);
+        for(let qKey in options.params){
+            queryParams = queryParams.set(qKey, (<any>options.params)[qKey]);
         }
         httpClientOptions.params = queryParams;
 
         // Add all requested HttpHeaders
-        if (options.headers) {
+        if(options.headers){
             // add a fake header to duplicate the headers
             let headers = (api.headers as HttpHeaders).set('fake_header_for_cloning', '');
-            for (let hKey in options.headers) {
-                headers = headers.set(hKey, (options as any).headers[hKey]);
+            for (let hKey in options.headers){
+                headers = headers.set(hKey, (<any>options).headers[hKey]);
             }
             // remove the fake header
             headers = headers.delete('fake_header_for_cloning');
@@ -145,17 +145,17 @@ export class ApiService {
      * @param  {HttpClientOptions} options
      * @returns Observable
      */
-    public call<T>(api: Api, httpClientOptions: HttpClientOptions): Observable<T> {
+    call<T>(api: Api, httpClientOptions: HttpClientOptions): Observable<T> {
         return this.http.request(api.method, api.url, httpClientOptions)
-            .map(res => this._handleSuccess(res))
-            .catch(res => this._handleError(res));
+            .map(res => this.handleSuccess(res))
+            .catch(res => this.handleError(res));
     }
 
-    private _handleSuccess(response: any): any {
+    private handleSuccess(response: any) {
         return response;
     }
 
-    private _handleError(response: HttpErrorResponse): Promise<HttpErrorResponse> {
+    private handleError(response: HttpErrorResponse) {
         return Promise.reject(response);
     }
 }

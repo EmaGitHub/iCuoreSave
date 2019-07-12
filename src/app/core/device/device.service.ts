@@ -1,6 +1,6 @@
 import { Injectable, Optional } from '@angular/core';
 import { ENV } from '@env';
-import { Device as NativeDevice } from '@ionic-native/device';
+import { Device } from '@ionic-native/device';
 import { Dialogs } from '@ionic-native/dialogs';
 import { Globalization } from '@ionic-native/globalization';
 import { Network } from '@ionic-native/network';
@@ -16,13 +16,14 @@ import {
     LoadingController,
     Platform,
     ToastController,
-    ToastOptions
+    ToastOptions,
 } from 'ionic-angular';
 import { Subscription } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject';
 
 import { DeviceModuleOptions } from './models/DeviceModuleOptions';
 import { KeyboardProvider } from './models/IKeyboard';
+import { GeolocationServiceProvider } from '../../../providers/geolocation-service/geolocation-service';
 
 @Injectable()
 export class DeviceService {
@@ -32,8 +33,8 @@ export class DeviceService {
 
     public networkStatusChanges$: Subject<boolean> = new Subject();
     public keyboardVisibilityChanges$: Subject<boolean> = new Subject();
-    public onResume$: Subject<any> = new Subject();
-    public onPause$: Subject<any> = new Subject();
+    public onResume: Subject<any> = new Subject();
+    public onPause: Subject<any> = new Subject();
 
     constructor(
         @Optional() options: DeviceModuleOptions,
@@ -50,26 +51,27 @@ export class DeviceService {
         private translateService: TranslateService,
         private alertCtrl: AlertController,
         private toastCtrl: ToastController,
-        private device: NativeDevice
+        private device: Device,
+        private geolocationService: GeolocationServiceProvider
     ) {
-        if (options) {
-            if (options.modalTitle) this.modalTitle = options.modalTitle;
-            if (options.dialogsMode) this.dialogsMode = options.dialogsMode;
+        if(options){
+            if(options.modalTitle) this.modalTitle = options.modalTitle;
+            if(options.dialogsMode) this.dialogsMode = options.dialogsMode;
         }
 
         // Init observables when device is ready
         const Device = this;
         if (this.isCordova()) {
             document.addEventListener('deviceready', () => {
-                Device._initSubscriptions();
+                Device.initSubscriptions();
             }, true);
         }
         else {
-            Device._initSubscriptions();
+            Device.initSubscriptions();
         }
     }
 
-    private _initSubscriptions(): void {
+    private initSubscriptions(){
         // Init subscription for online/offline events
         this.network.onConnect().subscribe(() => {
             this.networkStatusChanges$.next(true);
@@ -90,44 +92,63 @@ export class DeviceService {
 
         // Init subscription for platform pause event
         this.platform.pause.subscribe(() => {
-            this.onPause$.next(true);
+            this.onPause.next(true);
         });
 
         // Init subscription for platform resume event
         this.platform.resume.subscribe(() => {
-            this.onResume$.next(true);
+            this.onResume.next(true);
         });
     }
 
+    /** Return true if the app is running on iOS or Android Simulator */
+    isVirtual(): boolean {
+        if(this.device){
+            return this.device.isVirtual;
+        }
+        return false;
+    }
+
+    isGpsEnabled() : Promise<boolean> {
+
+        return this.geolocationService.getPosition().then(
+            () => {
+                return true;
+            }).catch( (e) => {
+            console.log(e);
+                return false;
+            });
+    }
+
     /**
-    * Return true if the app is running on Cordova, false otherwise
+    * Return true if the app running on Cordova, false otherwise
     * @returns {boolean}
     */
-    public isCordova(): boolean {
+    isCordova(): boolean {
         return this.platform.is('cordova');
     }
 
     /**
-    * Return true if the app is running on Android device, false otherwise
+    * Return true if the app running on Android device, false otherwise
     * @returns {boolean}
     */
-    public isAndroid(): boolean {
+    isAndroid(): boolean {
         return this.platform.is('android');
     }
 
     /**
-    * Return true if the app is running on iOS device, false otherwise
+    * Return true if the app running on iOS device, false otherwise
     * @returns {boolean}
     */
-    public isIos(): boolean {
+    isIos(): boolean {
         return this.platform.is('ios');
     }
 
     /**
-    * Return true if the app is running on Windows device, false otherwise
+    * Return true if the app running on Windows device, false otherwise
     * @returns {boolean}
     */
-    public isWindows(): boolean {
+    isWindows(): boolean {
         return this.platform.is('windows');
     }
 
@@ -135,7 +156,7 @@ export class DeviceService {
     * Return true if the app is running on tablet
     * @returns {boolean}
     */
-    public isTablet(): boolean {
+    isTablet(): boolean {
         return this.platform.is('tablet');
     }
 
@@ -143,7 +164,7 @@ export class DeviceService {
     * Return true if the device has internet connection available, false otherwise
     * @returns {boolean}
     */
-    public isOnline(): boolean {
+    isOnline(): boolean {
         if (this.isCordova()) {
             const connectionType = this.network.type
             return connectionType !== (window as any).Connection.UNKNOWN && connectionType !== (window as any).Connection.NONE;
@@ -157,7 +178,7 @@ export class DeviceService {
     * Return true if the device doesn't have internet connection available, false otherwise
     * @returns {boolean}
     */
-    public isOffline(): boolean {
+    isOffline(): boolean {
         return !this.isOnline();
     }
 
@@ -165,8 +186,8 @@ export class DeviceService {
      * Return the device’s Universally Unique Identifier (UUID) if the app is running on device
      * @returns string
      */
-    public getUUID(): string {
-        if (this.isCordova()) {
+    getUUID(): string {
+        if(this.isCordova()){
             return this.device.uuid;
         }
         return 'FAKE_UUID';
@@ -176,8 +197,8 @@ export class DeviceService {
      * Return the operating system version if the app is running on device
      * @returns string
      */
-    public getOSVersion(): string {
-        if (this.isCordova()) {
+    getOSVersion(){
+        if(this.isCordova()){
             return this.device.version;
         }
         return 'FAKE_VERSION';
@@ -187,8 +208,8 @@ export class DeviceService {
      * Return the device’s operating system name if the app is running on device
      * @returns string
      */
-    public getOS(): string {
-        if (this.isCordova()) {
+    getOS(){
+        if(this.isCordova()){
             return this.device.platform;
         }
         return 'FAKE_PLATFORM';
@@ -198,8 +219,8 @@ export class DeviceService {
      * Return the platform of the device’s model or product if the app is running on device
      * @returns string
      */
-    public getDeviceType(): string {
-        if (this.isCordova()) {
+    getDeviceType(){
+        if(this.isCordova()){
             return this.device.model;
         }
         return 'FAKE_PLATFORM';
@@ -209,7 +230,7 @@ export class DeviceService {
     * Show the app's splash screen
     * @returns void
     */
-    public showSplashscreen(): void {
+    showSplashscreen(): void {
         this.splashScreen.show();
     }
 
@@ -217,7 +238,8 @@ export class DeviceService {
     * Hide the app's splash screen
     * @returns void
     */
-    public hideSplashscreen(): void {
+    hideSplashscreen(): void {
+        if(this.isCordova())
         this.splashScreen.hide();
     }
 
@@ -225,7 +247,7 @@ export class DeviceService {
     * Force keyboard to be shown
     * @returns void
     */
-    public showKeyboard(): void {
+    showKeyboard(): void {
         this.keyboard.show();
     }
 
@@ -233,7 +255,7 @@ export class DeviceService {
     * Close the keyboard if open
     * @returns void
     */
-    public closeKeyboard(): void {
+    closeKeyboard(): void {
         this.keyboard.hide();
     }
 
@@ -241,9 +263,10 @@ export class DeviceService {
      * Set the default status bar style: dark text, for light backgrounds
      * @returns void
      */
-    public styleStatusBarAsDefault(): void {
+    styleStatusBarAsDefault() : void {
         if (this.isCordova()) {
             this.statusBar.styleDefault();
+            this.statusBar.backgroundColorByHexString('#df222e');
         }
     }
 
@@ -251,20 +274,20 @@ export class DeviceService {
      * Get the preferred language set on device
      * @returns {Promise<string>}
      */
-    public getPreferredLanguage() : Promise<string> {
+    getPreferredLanguage() : Promise<string> {
         let defer: Promise<{value: string}>;
-        if (this.isCordova()) {
+        if(this.isCordova()){
             defer = this.globalization.getPreferredLanguage();
         }
         else {
-            defer = new Promise(resolve => { resolve(ENV.getPreferredLanguageDev) });
+            defer = new Promise((resolve, reject) => { resolve(ENV.getPreferredLanguageDev) });
         }
         return defer.then(
             (lang: {value:string}) => {
                 let final;
-                try {
+                try{
                     final = lang.value.split('-')[0].toLowerCase();
-                } catch (e) { final = ''; }
+                }catch(e){ final = ''; }
                 return final;
             }
         )
@@ -277,51 +300,58 @@ export class DeviceService {
     * @param  {string} message Message to display in the spinner dialog
     * @returns void
     */
-    public showLoading(message?: string): void {
+    showLoading(message?: string): void {
         this.closeKeyboard();
 
-        if (message) {
+        if(message){
             message = this.translateService.instant(message);
         }
 
         if (this.isCordova()) {
-            if (message) {
+            if(message){
                 this.spinnerDialog.show(this.modalTitle, message, true);
             }
             else {
                 this.spinnerDialog.show(undefined, undefined, true);
             }
         }
-        else if (!this.ionLoading) {
+        else if(!this.ionLoading) {
             this.ionLoading = this.loadingCtrl.create({
                 content: message
             });
             this.ionLoading.present();
         }
+
+        /* setTimeout(() => {
+            this.hideLoading(true);
+        }, 8000); */
     }
 
     /**
     * Close the native spinner dialog or the Ionic one
     * @returns void
     */
-    public hideLoading(): void {
+    hideLoading(slow?: boolean): void {
+
         if (this.isCordova()) {
             this.spinnerDialog.hide();
+
+            if(slow) this.showToast("Slow connection", {duration: 1000});
         }
-        else if (this.ionLoading) {
+        else if(this.ionLoading) {
             this.ionLoading.dismiss();
             delete this.ionLoading;
         }
     }
 
-    public ORIENTATIONS = this.screenOrientation.ORIENTATIONS;
+    ORIENTATIONS = this.screenOrientation.ORIENTATIONS;
 
     /**
      * Lock the orientation to the passed value
      * @param  {string} orientation One of the @ionic-native/screen-orientation's ORIENTATIONS
      * @returns void
      */
-    public lockOrientation(orientation: string): void {
+    lockOrientation(orientation: string): void {
         this.screenOrientation.lock(orientation);
     }
 
@@ -329,7 +359,7 @@ export class DeviceService {
      * Unlock and allow all orientations
      * @returns void
      */
-    public unlockOrientation(): void {
+    unlockOrientation(): void {
         this.screenOrientation.unlock();
     }
 
@@ -337,7 +367,7 @@ export class DeviceService {
      * Get the current orientation of the device
      * @returns string
      */
-    public getOrientation(): string {
+    getOrientation(): string {
         return this.screenOrientation.type;
     }
 
@@ -345,13 +375,13 @@ export class DeviceService {
      * Check if device's orientation is portrait
      * @returns boolean
      */
-    public isPortrait(): boolean {
+    isPortrait(): boolean {
         const orientation = this.getOrientation();
-        if (
+        if(
             orientation === this.screenOrientation.ORIENTATIONS.PORTRAIT ||
             orientation === this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY ||
             orientation === this.screenOrientation.ORIENTATIONS.PORTRAIT_SECONDARY
-        ) {
+        ){
             return true;
         }
         else {
@@ -363,7 +393,7 @@ export class DeviceService {
      * Check if device's orientation is landscape
      * @returns boolean
      */
-    public isLandscape(): boolean {
+    isLandscape(): boolean {
         return !this.isPortrait();
     }
 
@@ -372,10 +402,10 @@ export class DeviceService {
      * @param  {Function|undefined} callback Callback to execute when orientation event is fired
      * @returns Observable
      */
-    public onOrientationChange(callback: Function | undefined): Subscription {
+    onOrientationChange(callback: Function | undefined): Subscription {
         return this.screenOrientation.onChange().subscribe(
             () => {
-                if (callback) {
+                if(callback){
                     callback();
                 }
             });
@@ -387,24 +417,24 @@ export class DeviceService {
     * @param  {string} title Dialog title
     * @returns void
     */
-    public alert(message: string,
-        options: {
-            handler?: () => void;
-            title?: string;
-            buttonName?: string;
+    alert(message: string,
+          options: {
+            handler?: () => void,
+            title?: string,
+            buttonName?: string
         } = {}
     ): void {
         this.hideLoading();
 
-        if (!options.handler) {
+        if(!options.handler){
             options.handler = () => {};
         }
 
-        if (!options.title) {
+        if(!options.title){
             options.title = this.modalTitle;
         }
 
-        if (!options.buttonName) {
+        if(!options.buttonName){
             options.buttonName = 'OK';
         }
 
@@ -440,19 +470,19 @@ export class DeviceService {
     * @param {string} title Dialog title
     * @param {AlertButton[]} buttons List of <AlertButton>
     */
-    public confirm(message: string,
-        options: {
-                title?: string;
-                buttons?: AlertButton[];
+    confirm(message: string,
+            options: {
+                title?: string,
+                buttons?: AlertButton[]
             } = {}
-    ): void {
+    ) {
         this.hideLoading();
 
-        if (!options.title) {
+        if(!options.title){
             options.title = this.modalTitle;
         }
 
-        if (!options.buttons) {
+        if(!options.buttons){
             options.buttons = [{
                 text: 'CANCEL',
                 cssClass: 'primary',
@@ -469,10 +499,10 @@ export class DeviceService {
         options.title = this.translateService.instant(options.title);
 
         const buttonLabels = options.buttons.map((b: AlertButton) => {
-            return this.translateService.instant(b.text as string);
+            return this.translateService.instant(<string>b.text);
         });
 
-        if (this.isCordova() && this.dialogsMode === 'native') {
+        if (this.isCordova() && this.dialogsMode === 'native'){
             this.dialogs.confirm(message, options.title, buttonLabels).then(
                 (buttonIndex: number) => {
                     // Decrement clicked button index because the plugin use 'one-based indexing'
@@ -498,46 +528,46 @@ export class DeviceService {
     * @param  {AlertOptions} options All Ionic alert options
     * @returns void
     */
-    public ionicCustomAlert(options: AlertOptions = {}): void {
+    ionicCustomAlert(options: AlertOptions = {}){
         this.hideLoading();
 
-        if (!options.title) options.title = this.modalTitle;
+        if(!options.title) options.title = this.modalTitle;
         options.title = this.translateService.instant(options.title);
-        if (options.subTitle) {
+        if(options.subTitle) {
             options.subTitle = this.translateService.instant(options.subTitle);
         }
         else {
             options.subTitle = '';
         }
-        if (options.message) {
+        if(options.message) {
             options.message = this.translateService.instant(options.message);
         }
         else {
             options.message = '';
         }
-        if (!options.cssClass) options.cssClass = 'primary';
-        if (!options.inputs) options.inputs = [];
-        if (!options.buttons) { options.buttons = [
+        if(!options.cssClass) options.cssClass = 'primary';
+        if(!options.inputs) options.inputs = [];
+        if(!options.buttons) { options.buttons = [
             {
-                text: 'OK',
-                handler: () => {},
-                cssClass: 'primary',
-                role: ''
+                text : 'OK',
+                handler : () => {},
+                cssClass : 'primary',
+                role : ''
             },{
-                text: 'CANCEL',
-                handler: () => {},
-                cssClass: 'primary',
-                role: 'cancel'
+                text : 'CANCEL',
+                handler : () => {},
+                cssClass : 'primary',
+                role : 'cancel'
             }
         ];
         }
-        options.buttons.forEach(b => {
+        options.buttons.forEach((b) => {
             (b as AlertButton).text = this.translateService.instant((b as AlertButton).text as string);
         });
-        if (!options.enableBackdropDismiss) options.enableBackdropDismiss = false;
+        if(!options.enableBackdropDismiss) options.enableBackdropDismiss = false;
 
         let alert = this.alertCtrl.create(options);
-        if (this.isIos()) {
+        if(this.isIos()){
             alert.setMode('ios');
         }
         alert.present();
@@ -549,14 +579,14 @@ export class DeviceService {
      * @param  {ToastOptions?} options All Ionic toast options
      * @returns void
      */
-    public showToast(message: string, options?: ToastOptions): void {
-        if (!options) {
+    showToast(message: string, options?: ToastOptions){
+        if(!options){
             options = {};
         }
         options.message = this.translateService.instant(message);
-        if (!options.position) options.position = 'bottom';
-        if (!options.duration) options.duration = 5000;
-        if (options.closeButtonText) {
+        if(!options.position) options.position = 'bottom';
+        if(!options.duration) options.duration = 4000;
+        if(options.closeButtonText) {
             options.showCloseButton = true;
             options.closeButtonText = this.translateService.instant(options.closeButtonText);
         }

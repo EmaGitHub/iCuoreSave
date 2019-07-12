@@ -1,0 +1,70 @@
+<!-- Generated template for the FindDaeBlockComponent component -->
+<div id="elem">
+
+    <div id="titleRow">
+        <ion-icon id="titleIcon" name="ics-heart"></ion-icon>
+        <span id="titleName">{{emergency.descrizione}}</span>
+        <span id="dist" *ngIf='!isLoading'>{{distanceObj.distance}}</span>
+        <span id="dist" *ngIf='isLoading'><ion-spinner id="whiteSpinner" name="bubbles"></ion-spinner></span>
+    </div>
+
+    <br>
+
+    <ion-row>
+        <ion-col col-2 class="iconLeft">
+            <ion-icon id="icon" name="ics-poi"></ion-icon>
+        </ion-col>
+        <ion-col col-10>
+            <strong>{{emergency.luogo.localita}}</strong>
+            <br> {{emergency.luogo.indirizzo}}
+        </ion-col>
+    </ion-row>
+    <br>
+    <ion-row>
+        <ion-col col-2 class="iconLeft">
+            <ion-icon id="icon" name="ics-dae"></ion-icon>
+        </ion-col>
+        <ion-col col-10>
+            <strong *ngIf="proximityDAECounter == null"><ion-spinner name="bubbles"></ion-spinner> DAE</strong>
+            <strong *ngIf="proximityDAECounter != null">{{proximityDAECounter}} DAE</strong>
+            <br> {{ "DAE_AVAILABLE_NEARBY" | translate }}
+        </ion-col>
+    </ion-row>
+    <br>
+    <ion-row>
+        <ion-col col-2 class="iconLeft">
+            <ion-icon id="icon" name="ics-clock"></ion-icon>
+        </ion-col>
+        <ion-col col-10>
+            <strong>{{ "ESTIMATED_ARRIVAL_TIME" | translate }}</strong>
+            <br>
+            <ion-icon id="blackIcon" name="ics-car"></ion-icon>
+            <span id="estimate" *ngIf='!isLoading'>{{distanceObj.carDuration}}</span>
+            <span *ngIf='isLoading'><ion-spinner id='blackSpinner' name="bubbles"></ion-spinner></span>
+
+            <ion-icon id="blackIcon" name="ics-walk"></ion-icon>
+            <span id="estimateWalk" *ngIf='!isLoading'>{{distanceObj.walkingDuration}}</span>
+            <span *ngIf='isLoading'><ion-spinner id='blackSpinner' name="bubbles"></ion-spinner></span>
+
+        </ion-col>
+    </ion-row>
+
+    <div class="centered">
+        <p>{{desc}}</p>
+    </div>
+
+
+</div>
+
+<ion-row id="segmentButtonsRow">
+    <ion-col text-center no-padding>
+
+        <button ion-button id="interveneButton" style="text-transform: none;" (tap)="interviene()">{{'CAN_INTERVENE_BUTTON' | translate}}</button>
+
+    </ion-col>
+    <ion-col text-center no-padding>
+
+        <button ion-button id="cantInterveneButton" style="text-transform: none;" (tap)="notInterviene()">{{'CANT_INTERVENE_BUTTON' | translate}}</button>
+
+    </ion-col>
+</ion-row>

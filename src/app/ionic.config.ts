@@ -1,6 +1,7 @@
 
 export const IonicConfig = {
-    pageTransition: 'ios-transition',
+    pageTransition : 'ios-transition',
     mode: 'md',
-    activator: 'ripple'
+    activator: 'ripple',
+    statusbarPadding: true
 }

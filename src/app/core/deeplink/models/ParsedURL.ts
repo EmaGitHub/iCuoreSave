@@ -1,18 +1,18 @@
 
 export class ParsedURL {
-    public host: string;
-    public hostname: string;
-    public port: string;
-    public pathname: string;
-    public search: string;
-    public hash: string;
-    public searchObject: any;
-    public protocol: string;
+    host: string;
+    hostname: string;
+    port: string;
+    pathname: string;
+    search: string;
+    hash: string;
+    searchObject: any;
+    protocol: string;
 
     constructor(
         parser: HTMLAnchorElement,
         searchObject: any
-    ) {
+    ){
         this.protocol = parser.protocol || '';
         this.host = parser.host || '';
         this.hostname = parser.hostname || '';

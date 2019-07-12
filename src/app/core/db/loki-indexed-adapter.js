@@ -290,7 +290,7 @@
       this.catalog.getAppKeys(appName, function(results) {
         var names = [];
 
-        for (var idx = 0; idx < results.length; idx++) {
+        for(var idx = 0; idx < results.length; idx++) {
           names.push(results[idx].key);
         }
 
@@ -340,7 +340,7 @@
           okey,
           oval;
 
-        for (var idx = 0; idx < results.length; idx++) {
+        for(var idx = 0; idx < results.length; idx++) {
           obj = results[idx];
           oapp = obj.app || '';
           okey = obj.key || '';
@@ -385,15 +385,15 @@
           thisDB.deleteObjectStore('LokiAKV');
         }
 
-        if (!thisDB.objectStoreNames.contains('LokiAKV')) {
-          var objectStore = thisDB.createObjectStore('LokiAKV', { keyPath: 'id', autoIncrement: true });
-          objectStore.createIndex('app', 'app', {unique: false});
-          objectStore.createIndex('key', 'key', {unique: false});
+        if(!thisDB.objectStoreNames.contains('LokiAKV')) {
+          var objectStore = thisDB.createObjectStore('LokiAKV', { keyPath: 'id', autoIncrement:true });
+          objectStore.createIndex('app', 'app', {unique:false});
+          objectStore.createIndex('key', 'key', {unique:false});
           // hack to simulate composite key since overhead is low (main size should be in val field)
           // user (me) required to duplicate the app and key into comma delimited appkey field off object
           // This will allow retrieving single record with that composite key as well as
           // still supporting opening cursors on app or key alone
-          objectStore.createIndex('appkey', 'appkey', {unique: true});
+          objectStore.createIndex('appkey', 'appkey', {unique:true});
         }
       };
 
@@ -452,7 +452,7 @@
       var store = transaction.objectStore('LokiAKV');
       var request = store.get(id);
 
-      request.onsuccess = (function(data, usercallback) {
+      request.onsuccess = (function(data, usercallback){
         return function(e) {
           if (typeof(usercallback) === 'function') {
             usercallback(e.target.result, data);
@@ -478,10 +478,10 @@
 
         if (res === null || res === undefined) {
           res = {
-            app: app,
-            key: key,
+            app:app,
+            key:key,
             appkey: app + ',' + key,
-            val: val
+            val:val
           };
         }
         else {

@@ -1,0 +1,66 @@
+navbar {
+    ion-header {
+        position: absolute;
+        height: 8vh !important;
+    }
+    .navbarStyle {
+        border-bottom: 2px color($colors, red) solid;
+        background: white;
+        height: 8vh !important;
+        padding: 0px !important;
+    }
+    .toolbar-title {
+        color: black;
+    }
+    .navbarQRStyle {
+        padding-left: 8vh;
+        background: map-get($colors, red);
+    }
+    .navbarQRStyle .toolbar-title {
+        color: white;
+    }
+    #headerImage {
+        height: 30px;
+    }
+    #icon {
+        font-size: 33px;
+    }
+    #backIcon {
+        position: relative;
+        left: 15px;
+        float: left;
+        font-size: 33px;
+        color: map-get($colors, red);
+        background: transparent;
+        z-index: 5;
+    }
+    #titleWithBack {
+        position: fixed;
+        top: 15px;
+        left: 32vw;
+    }
+    ion-header ion-icon.back-button-icon.icon {
+        color: map-get($colors, red);
+    }
+    #back-icon {
+        font-size: 33px;
+    }
+    ion-header {
+        height: 55px !important;
+        position: fixed;
+        top: 0;
+    }
+    #homeButton {
+        border: 1px rgb(175, 172, 172) solid;
+        padding: 0px;
+    }
+    ion-row p {
+        color: gray;
+    }
+    #headerImage {
+        height: 30px;
+    }
+    #icon {
+        font-size: 33px;
+    }
+}

@@ -1,0 +1,33 @@
+<!--
+  Generated template for the EmergenciesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<navbar [page]="'EMERGENCY_LIST'"></navbar>
+
+
+<ion-content padding-top id="ionContent">
+
+    <div id="desc">
+        {{ "EMERGENCY_DESCRIPTION" | translate }}
+    </div>
+
+    <ion-row padding-top>
+        <ion-col col-2>
+            <ion-icon id="emergency-icon" name="ics-emergency"></ion-icon>
+        </ion-col>
+        <ion-col col-10>
+            <strong id="red-label">{{emergencies.length}} Emergencies</strong>
+            <br> {{ "EMERGENCY_CLOSE" | translate }}
+        </ion-col>
+    </ion-row>
+
+    <br>
+
+    <div class="margin">
+        <emergency *ngFor="let emergency of emergencies" [emergency]="emergency"></emergency>
+    </div>
+
+</ion-content>

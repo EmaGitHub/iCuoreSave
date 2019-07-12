@@ -30,9 +30,9 @@ export class ConfigService {
         private versioningService: VersioningService
     ) {
         this.storage = new Storage({
-            name: options.storePrefix || 'storage',
+            name : options.storePrefix || 'storage',
             storeName: 'config',
-            driverOrder: ['localstorage']
+            driverOrder : ['localstorage']
         });
         this.initCompleted = this.init(options);
     }
@@ -48,10 +48,10 @@ export class ConfigService {
     /**
      * Download config file and init the app
      */
-    private init(options: ConfigModuleOptions): Promise<null> {
-        return new Promise<null>((resolve, reject) => {
+    private init(options: ConfigModuleOptions) {
+        return new Promise<any>((resolve, reject) => {
             // If requested config is a remote one => download it
-            if (options.remote) {
+            if(options.remote){
                 this.url = options.remote;
                 this.download().then(
                     (config: Config) => {
@@ -62,7 +62,7 @@ export class ConfigService {
                 );
             }
             // Otherwise use the local one (if exists)
-            else if (options.local) {
+            else if(options.local){
                 this.initConfig(options.local);
                 resolve();
             }
@@ -72,7 +72,7 @@ export class ConfigService {
         });
     }
 
-    private initConfig(config: Config): void {
+    private initConfig(config: Config) {
         this.config = new Config(config);
         // Init the api service
         this.apiService.init(this.config.backend);
@@ -88,25 +88,25 @@ export class ConfigService {
      * @returns {Promise<Config>}
      */
     private download(): Promise<Config> {
-        return new Promise<Config>((resolve, reject) => {
+        return new Promise<any>((resolve, reject) => {
             this.getLastConfig().then(
                 lastConfig => {
-                    if (this.deviceService.isOnline()) {
+                    if(this.deviceService.isOnline()){
                         // Try to download the new config file only if it was modified
                         let headers = new HttpHeaders().set('Content-Type', 'application/json');
-                        if (lastConfig && lastConfig.lastModified) {
+                        if(lastConfig && lastConfig.lastModified){
                             //headers = headers.set('If-Modified-Since', lastConfig.lastModified);
                         }
                         this.http.get<Config>(`${this.url}?t=${new Date().getTime()}`, {headers, observe: 'response'}).subscribe(
                             (res: HttpResponse<Config>) => {
                                 // If config.json was updated initialize it and update the lastModified property
-                                (res.body as Config).lastModified = res.headers.get('Last-Modified') as string;
-                                resolve(res.body as Config);
+                                (<Config>res.body).lastModified = <string>res.headers.get('Last-Modified');
+                                resolve(res.body);
                             },
                             (err: HttpErrorResponse) => {
                                 // If the HTTP call fails but I have a local config
                                 // initialize it with localStorage version
-                                if (lastConfig) {
+                                if(lastConfig){
                                     resolve(lastConfig);
                                 }
                                 // The download fails and a local config doesn't exists, so throw an error
@@ -119,7 +119,7 @@ export class ConfigService {
                     // If the device is offline but I have a local config
                     // initialize it with localStorage version
                     else {
-                        if (lastConfig) {
+                        if(lastConfig){
                             resolve(lastConfig);
                         }
                         // The download fails and a local config doesn't exists, so throw an error

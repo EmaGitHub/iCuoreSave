@@ -1,0 +1,8 @@
+    list {
+        .list {
+            padding-top: 10px;
+            padding-bottom: 20px;
+            background: map-get($colors, gray) !important;
+            min-height: 92vh;
+        }
+    }

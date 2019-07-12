@@ -5,11 +5,11 @@ import { AppVersion } from '@ionic-native/app-version';
 import { find } from 'lodash';
 import Semver from 'semver';
 
-import { IVersioning } from './models/Versioning';
+import { Versioning } from './models/Versioning';
 
 @Injectable()
 export class VersioningService {
-    private versioning: IVersioning[] = [];
+    private versioning: Versioning[] = [];
 
     constructor(
         private logger: LoggerService,
@@ -19,10 +19,10 @@ export class VersioningService {
 
     /**
      * Init the module with the remote conf
-     * @param  {IVersioning[]} versioning
+     * @param  {Versioning[]} versioning
      * @returns void
      */
-    public setVersioning(versioning: IVersioning[]): void {
+    public setVersioning(versioning: Versioning[]): void {
         this.versioning = versioning;
     }
 
@@ -32,7 +32,7 @@ export class VersioningService {
      * @public
      */
     public getAppVersion(): Promise<string> {
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
             // Se sto girando su device recupero la versione utilizzando il plugin nativo
             if (this.deviceService.isCordova()) {
                 this.appVersion.getVersionNumber().then((version: string) => {
@@ -76,16 +76,16 @@ export class VersioningService {
         return new Promise((resolve, reject) => {
             if (this.deviceService.isCordova()) {
                 let platform = this.deviceService.getOS().toLowerCase();
-                let platformVersioning = find(this.versioning, { platform: platform });
-                if (platformVersioning) {
+                let platformVersioning = find(this.versioning, { platform : platform });
+                if(platformVersioning){
                     this.isLastVersion(platformVersioning.lastVersion).then(
                         (isLastVersion : boolean) => {
                             // Se non è l'ultima versione disponibile
                             if (isLastVersion === false) {
-                                const storeLink = (platformVersioning as IVersioning).storeLink;
+                                const storeLink = (platformVersioning as Versioning).storeLink;
                                 // Verifico se l'aggiornamento è obbligatorio
                                 // e in tal caso mostro un alert e vado allo storeLink
-                                if ((platformVersioning as IVersioning).isMandatoryUpdate) {
+                                if ((platformVersioning as Versioning).isMandatoryUpdate) {
                                     this.logger.debug(`App mandatory update ${platform}`);
                                     return this.mandatoryUpdate(storeLink);
                                 }
@@ -151,8 +151,8 @@ export class VersioningService {
                     title: 'APP_UPDATE_AVAILABLE',
                     buttons: [
                         {
-                            text: 'UPDATE',
-                            handler: () => {
+                            text : 'UPDATE',
+                            handler : () => {
                                 window.open(
                                     storeLink,
                                     '_system'
@@ -161,7 +161,7 @@ export class VersioningService {
                             }
                         },
                         {
-                            text: 'NOT_UPDATE',
+                            text : 'NOT_UPDATE',
                             handler: () => {
                                 resolve();
                             }

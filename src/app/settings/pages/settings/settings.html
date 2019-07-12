@@ -1,0 +1,130 @@
+<navbar [page]="'SETTINGS'"></navbar>
+
+<ion-content padding-left padding-top>
+
+    <div id="content">
+
+        <ion-item *ngIf="getLogged()">
+            <ion-grid style="height: 100%">
+                <ion-row justify-content-center align-items-center style="height: 100%;">
+
+                    <ion-col col-2>
+
+                        <ion-icon name="ics-bell"></ion-icon>
+
+                    </ion-col>
+
+                    <ion-col col-7>
+                        {{'SETTINGS_PUSH_NOTIFICATION' | translate}}
+                        <br>
+                        <div>
+                            <p id="desc" *ngIf="!pushNotificationsEnabled">{{'SETTINGS_PUSH_NOTIFICATION_TEXT_ENABLED' | translate}}</p>
+                            <p id="desc" *ngIf="pushNotificationsEnabled">{{'SETTINGS_PUSH_NOTIFICATION_TEXT_DISABLED' | translate}}</p>
+                        </div>
+
+                    </ion-col>
+
+                    <ion-col col-3 id="toggle">
+
+                        <ion-item>
+                            <ion-toggle color="primary" (ionChange)="toggleSwitchNotif()" [(ngModel)]="pushNotificationsEnabled"></ion-toggle>
+                        </ion-item>
+
+                    </ion-col>
+
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+
+
+        <ion-item (tap)="presentPopover()">
+            <ion-grid style="height: 100%">
+                <ion-row justify-content-center align-items-center style="height: 100%;">
+
+                    <ion-col col-2>
+
+                        <ion-icon name="ics-flag"></ion-icon>
+
+                    </ion-col>
+
+                    <ion-col col-8>
+                        {{'SETTINGS_LANGUAGE' | translate}}
+                        <br>
+                        <p>{{'SETTINGS_LANGUAGE_TEXT' | translate}}</p>
+
+                    </ion-col>
+
+                    <ion-col col-2>
+
+                        <p>{{currentLanguage}}</p>
+
+                    </ion-col>
+
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-grid style="height: 100%">
+                <ion-row justify-content-center align-items-center style="height: 100%;">
+
+                    <ion-col col-2>
+
+                        <ion-icon name="ios-bonfire"></ion-icon>
+
+                    </ion-col>
+
+                    <ion-col col-7>
+                        Animations
+                        <br>
+                        <div>
+                            <p id="desc" *ngIf="animationsEnabled">Disable animations for better performance</p>
+                            <p id="desc" *ngIf="!animationsEnabled">Enable animations for a better user experience</p>
+                        </div>
+
+                    </ion-col>
+
+                    <ion-col col-3 id="toggle">
+
+                        <ion-item>
+                            <ion-toggle [(ngModel)]="animationsEnabled" color="primary" (ionChange)="toggleSwitchAnim()"></ion-toggle>
+                        </ion-item>
+
+                    </ion-col>
+
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-grid style="height: 100%">
+                <ion-row justify-content-center align-items-center style="height: 100%">
+
+                    <ion-col col-2>
+
+                        <ion-icon name="ics-info"></ion-icon>
+
+                    </ion-col>
+
+                    <ion-col col-8>
+                        {{'SETTINGS_APP_VERSION' | translate}}
+                        <br>
+                        <p>{{currentVersion}}</p>
+
+                    </ion-col>
+
+                    <ion-col col-2>
+
+
+
+                    </ion-col>
+
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+
+    </div>
+
+</ion-content>

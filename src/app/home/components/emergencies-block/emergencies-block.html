@@ -1,0 +1,26 @@
+<!-- Generated template for the EmergenciesBlockComponent component -->
+<div id="background">
+
+    <p padding-left padding-right>{{ "DETECTION_ACCURACY" | translate }}:
+        <ion-spinner id="redSpinner" name="bubbles"></ion-spinner> <strong>{{accuracy}} m</strong></p>
+
+    <p padding-left padding-right>{{ "NO_HIGH_ACCURACY" | translate }}</p>
+
+    <br>
+
+</div>
+
+<div class="center">
+    <button (tap)="navigateToEmergencies()" *ngIf="emergencies?.length > 0" ion-button id="centralRedButton" style="text-transform: none;">
+    <img src="assets/imgs/menuHeart.png" id="heartImage" /><span>{{emergencies.length}} Emergenze in corso</span>
+  </button>
+
+    <button *ngIf="emergencies?.length == 0 && !isLoading" ion-button id="centralGrayButton" style="text-transform: none;">
+      Nessuna emergenza
+    </button>
+    <button *ngIf="isLoading" ion-button id="centralGrayButton" style="text-transform: none;">
+          <ion-spinner id="blackSpinner" name="bubbles"></ion-spinner> Loading
+      </button>
+
+
+</div>

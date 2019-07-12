@@ -1,41 +1,18 @@
-page-login {
-    ion-content.content-md {
-        background: map-get($colors, secondary);
-
-        #loginForm {
-            width: 80%;
-            max-width: 300px;
-            margin: 120px auto;
-            text-align: center;
-
-            h5 {
-                color: map-get($colors, primary);
-                font-weight: bold;
-                margin-bottom: 20px;
-            }
-
-            .login-input-container {
-                margin-top: 20px;
-                margin-bottom: 20px;
-                padding-left: 0px;
-                min-height: 0;
-
-                .item-inner {
-                    padding-right: 0px;
-                    border: none;
-
-                    input {
-                        text-align: center;
-                        padding-right: 0;
-                    }
-                }
-            }
-
-            .button-link {
-                text-transform: none;
-                text-decoration: underline;
-                font-weight: normal;
-            }
+    page-login {
+        ion-content {
+            background: transparent none !important;
+        }
+        ion-footer {
+            height: 8vh;
+            background: map-get($colors, red);
+        }
+        #footer {
+            color: white;
+            font-size: 1.1em;
+        }
+        button {
+            background: map-get($colors, red);
+            position: relative;
+            top: 100px;
         }
     }
-}

@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,6 +12,30 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+body {
+    background-color: map-get($colors, red);
+    margin-top: constant(safe-area-inset-top);
+    margin-top: env(safe-area-inset-top);
+}
+
+ion-content.has-refresher>.scroll-content {
+    background-color: inherit !important;
+    margin-top: 50px !important;
+}
+
+.toolbar-footer {
+    margin-bottom: constant(safe-area-inset-bottom);
+    margin-bottom: env(safe-area-inset-bottom);
+}
+
+ion-app {
+    /*  margin-top: constant(safe-area-inset-top);
+    margin-top: env(safe-area-inset-top); */
+}
+
+.toastClass {
+    margin-bottom: env(safe-area-inset-top) !important; //for iOS 11.1
+}
 
 .text-bold {
     font-weight: bold;
@@ -21,8 +43,111 @@
 
 ion-nav.main-app.content-hidden {
     background: map-get($colors, primary);
-
     ion-tabs.app-tabs {
         display: none;
+    }
+}
+
+ion-list {
+    padding-top: 15px;
+}
+
+hr {
+    margin: 0;
+    color: rgb(32, 32, 32);
+    height: 2px;
+}
+
+ion-header {
+    background-color: white;
+    z-index: 10;
+}
+
+.item {
+    padding-left: 0 !important;
+}
+
+ion-item #sectionIcon {
+    color: map-get($colors, blue);
+    margin-top: 0;
+    margin-bottom: 0;
+    transform: translateX(20px);
+}
+
+ion-item #arrowIcon {
+    color: grey;
+}
+
+#menuImage {
+    padding-left: 3vw;
+    width: 90px;
+    height: 70px;
+}
+
+#sideNav {
+    padding-top: 15vh;
+}
+
+#registerLabel {
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
+}
+
+#loginIcon {
+    position: relative;
+    top: 2px;
+}
+
+#arrowLoginIcon {
+    position: absolute;
+    right: 15px;
+}
+
+.toolbar-content {
+    margin-right: 55px !important;
+}
+
+#registerButton {
+    width: 100%;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: transparent;
+    color: white;
+    border-color: white;
+    font-size: 14px;
+    text-transform: none;
+}
+
+ion-backdrop {
+    opacity: 0.5;
+}
+
+#accountIcon {
+    font-size: 22px;
+    position: relative;
+    top: 4px;
+}
+
+#accountLabel {
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
+}
+
+.alertCustomCss {
+    .alert-wrapper {
+        border: 1px black solid !important;
+        border-radius: 10%;
+    }
+    // text color for basic alerts
+    color: black;
+    // alert modal page bg color. Warning this will remove the alert transparency
+    button {
+        color: white !important; // button text color
+        background-color: color($colors, secondary, base) !important;
     }
 }

@@ -1,0 +1,72 @@
+@font-face {
+    font-family: 'iCuoreSave';
+    src: url(../assets/fonts/iCuoreSave.eot?e9lgk1);
+    src: url(../assets/fonts/iCuoreSave.eot?e9lgk1#iefix) format('embedded-opentype'), url(../assets/fonts/iCuoreSave.ttf?e9lgk1) format('truetype'), url(../assets/fonts/iCuoreSave.woff?e9lgk1) format('woff'), url(../assets/fonts/iCuoreSave.svg?e9lgk1#iCuoreSave) format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="ics-"],
+[class*=" ics-"],
+[class^="ion-ios-ics-"],
+[class*=" ion-ios-ics-"],
+[class^="ion-md-ics-"],
+[class*=" ion-md-ics-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'iCuoreSave' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin makeIcon($arg, $val) {
+    .ics-#{$arg}:before,
+    .ion-ios-ics-#{$arg}:before,
+    .ion-ios-ics-#{$arg}-outline:before,
+    .ion-md-ics-#{$arg}:before,
+    .ion-md-ics-#{$arg}-outline:before {
+        content: $val;
+    }
+}
+
+
+/**
+ * Trova a sostituisci con la regex
+ * \.euc-([\S]*):before {\n\s*content: "(.*?)";\n}
+ * da sostituire con
+ * @include makeIcon($1, '$2');
+ */
+
+@include makeIcon(menu, '\e910');
+@include makeIcon(home, '\e908');
+@include makeIcon(check, '\e900');
+@include makeIcon(close, '\e901');
+@include makeIcon(phone, '\e902');
+@include makeIcon(clock, '\e903');
+@include makeIcon(walk, '\e904');
+@include makeIcon(car, '\e905');
+@include makeIcon(emergency, '\e906');
+@include makeIcon(tickets, '\e907');
+@include makeIcon(cog, '\e909');
+@include makeIcon(info, '\e90a');
+@include makeIcon(dae, '\e90b');
+@include makeIcon(login, '\e90c');
+@include makeIcon(logout, '\e917');
+@include makeIcon(actions, '\e90d');
+@include makeIcon(bell, '\e90e');
+@include makeIcon(poi, '\e90f');
+@include makeIcon(dae-search, '\e911');
+@include makeIcon(heart, '\e912');
+@include makeIcon(camera, '\e915');
+@include makeIcon(clip, '\e913');
+@include makeIcon(star, '\e914');
+@include makeIcon(account, '\e916');
+@include makeIcon(back, '\e918');
+@include makeIcon(qrcode, '\e919');
+@include makeIcon(flag, '\e920');

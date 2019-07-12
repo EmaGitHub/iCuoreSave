@@ -1,0 +1,9 @@
+map {
+    .content {
+        padding-top: 50px;
+    }
+    #map_canvas {
+        height: 84vh;
+        z-index: 10;
+    }
+}

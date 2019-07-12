@@ -1,30 +1,38 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { LoginPage, LoginService } from '@app/login';
-import { SharedModule } from '@shared/shared.module';
+import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 
+import { LoginPage } from './pages/login/login';
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { ComponentsModule } from '@app/components/components.module';
+import { OverlaidSquareComponent } from './components/overlaid-square/overlaid-square';
+import { BlankPage } from './pages/blank-page/blank-page';
+
 @NgModule({
+    declarations: [
+
+        // Components
+        OverlaidSquareComponent,
+
+        // Pages list
+        LoginPage,
+        BlankPage
+        
+    ],
     imports: [
         IonicModule,
-        SharedModule,
-        FormsModule
+        ComponentsModule
     ],
-    declarations: [
-        // Pages list
-        LoginPage
+    entryComponents : [
 
         // Components
-    ],
-    entryComponents: [
-        // Pages list
-        LoginPage
+        OverlaidSquareComponent,
 
-        // Components
+        // Pages list
+        LoginPage,
+        BlankPage
     ],
-    schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers: [
-        LoginService
-    ]
+        QRScanner    
+]
 })
 export class LoginModule { }

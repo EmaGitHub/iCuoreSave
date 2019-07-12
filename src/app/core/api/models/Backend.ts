@@ -9,7 +9,7 @@ export class Backend {
     constructor(
         backend: Partial<Backend>
     ) {
-        this.baseUrl = backend.baseUrl as string;
+        this.baseUrl = <string>backend.baseUrl;
         this.api = (backend.api as Api[]).map((a: Api) => { return new Api(a); });
         this.environment = backend.environment || 'PROD';
     }
@@ -17,10 +17,10 @@ export class Backend {
     public getApi(apiName:string): Api|null {
         let api;
         try {
-            api = this.api.find(api => api.name === apiName) as Api;
+            api = <Api>this.api.find(api => api.name === apiName);
             api.url = this.prepareUrl(api.url);
         }
-        catch (err) {
+        catch(err){
             api = null;
         }
         return api;
@@ -35,9 +35,9 @@ export class Backend {
     public createNewApi(url: string, method: string = RequestMethods.GET): Api {
         url = this.prepareUrl(url);
         let api = new Api({
-            name: 'newApi',
-            url: url,
-            method: method
+            name : 'newApi',
+            url : url,
+            method : method
         });
         return api;
     }

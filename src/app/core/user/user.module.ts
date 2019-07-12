@@ -22,7 +22,7 @@ import { UserService } from './user.service';
     ]
 })
 export class UserModule {
-    constructor(@Optional() @SkipSelf() parentModule: UserModule) {
+    constructor (@Optional() @SkipSelf() parentModule: UserModule) {
         if (parentModule) {
             throw new Error('UserModule is already loaded');
         }
@@ -33,7 +33,7 @@ export class UserModule {
     * @param  {UserModuleOptions} options all available configuration for <UserModule>
     * @returns {ModuleWithProviders}
     */
-    public static forRoot(options?: UserModuleOptions): ModuleWithProviders {
+    static forRoot(options?: UserModuleOptions): ModuleWithProviders {
         return {
             ngModule: UserModule,
             providers: [
