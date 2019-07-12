@@ -55,6 +55,7 @@
     "cordova-plugin-app-version": "0.1.9",
     "cordova-plugin-device": "2.0.1",
     "cordova-plugin-dialogs": "2.0.1",
+    "cordova-plugin-googlemaps": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps.git#multiple_maps",
     "cordova-plugin-ionic-keyboard": "2.0.5",
     "cordova-plugin-native-spinner": "1.1.3",
     "cordova-plugin-network-information": "2.0.1",
@@ -106,7 +107,11 @@
       "ionic-plugin-keyboard": {},
       "cordova-plugin-native-spinner": {},
       "cordova-plugin-app-version": {},
-      "cordova-plugin-dialogs": {}
+      "cordova-plugin-dialogs": {},
+      "cordova-plugin-googlemaps": {
+        "API_KEY_FOR_ANDROID": "AIzaSyDGhlrw1b8QbclymhqKebBYEvuSsCmNmTM",
+        "API_KEY_FOR_IOS": "AIzaSyD5kCWTUhrPZeZOLKjq1pMUkUbRG25uH8s"
+      }
     }
   },
   "config": {

@@ -35,6 +35,8 @@
     <preference name="StatusBarStyle" value="lightcontent" />
     <preference name="AndroidLaunchMode" value="singleTop" />
     <preference name="loadUrlTimeoutValue" value="700000" />
+    <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyDGhlrw1b8QbclymhqKebBYEvuSsCmNmTM" />
+    <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyD5kCWTUhrPZeZOLKjq1pMUkUbRG25uH8s" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -119,4 +121,8 @@
     <plugin name="cordova-universal-links-plugin" spec="https://github.com/lcaprini/cordova-universal-links-plugin.git" />
     <plugin name="cordova-plugin-firebase" spec="1.0.0" />
     <plugin name="cordova-plugin-app-version" spec="0.1.9" />
+    <plugin name="cordova-plugin-googlemaps" spec="https://github.com/mapsplugin/cordova-plugin-googlemaps#multiple_maps">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDGhlrw1b8QbclymhqKebBYEvuSsCmNmTM" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyD5kCWTUhrPZeZOLKjq1pMUkUbRG25uH8s" />
+    </plugin>
 </widget>
